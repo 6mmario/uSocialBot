@@ -12,9 +12,9 @@ class UsuarioRoutes {
     }
 
     config() {
-        // this.router.get('/:id', gamesController.getOne);
         this.router.post('/', usuarioController.create);
-        // this.router.put('/:id', gamesController.update);
+        this.router.post('/OAuth', usuarioController.OAuth);
+        this.router.put('/:id', usuarioController.update);
         // this.router.delete('/:id', gamesController.delete);
     }
 

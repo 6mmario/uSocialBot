@@ -14,24 +14,24 @@ const s3 = new AWS.S3({
     apiVersion: process.env.API_VERSION
 });
 
-class UsuarioController {
+class PublicacionController {
 
+    //Pruebas
+    public async index(req: Request, res: Response): Promise<void> {
+        let now = new Date();
+        console.log('La fecha actual es', now);
+        console.log('UNIX time:', now.getTime());
+        res.json(now);
+    }
 
-    // Registro 0-Sin Fotografia, 1-Con Fotografia
+    // Crear 0-Sin Fotografia, 1-Con Fotografia
     public async create(req: Request, res: Response): Promise<any> {
         var result: any = null;
-        const id = req.body.id_usuario;
-        const foto = req.body.foto;
+        const foto = req.body.imagen;
         let base64String = req.body.base64;
         let extension = req.body.extension;
         let filename = `${uuid()}.${extension}`;
 
-        // existe?
-        result = await pool.query('SELECT * FROM usuario WHERE id_usuario = ?', id);
-
-        if (result.length > 0) {
-            return res.json({ mensaje: 'Usaurio ya existe' });
-        }
 
         // tiene foto
         if (foto === 1) {
@@ -40,7 +40,7 @@ class UsuarioController {
 
             //Parámetros para S3
             let bucketname = "practica2-26";
-            let folder = "fotos/";
+            let folder = "publicaciones/";
             let filepath = `${folder}${filename}`;
 
             var params = {
@@ -56,20 +56,22 @@ class UsuarioController {
                 } else {
                     delete req.body.base64;
                     delete req.body.extension;
-                    delete req.body.foto;
+                    delete req.body.imagen;
 
-                    bcrypt.hash(req.body.pass, saltRounds).then((hash) => {
-                        req.body.pass = hash
-                        req.body.urlimagen = data.Location;
-                        result = pool.query('INSERT INTO usuario set ?', [req.body]);
-                        res.json({ message: 'Usuario guardado' });
-                    });
+                    const now = new Date();
+                    req.body.fecha = now;
+                    req.body.urlimagen = data.Location;
+                    result = pool.query('INSERT INTO publicacion set ?', [req.body]);
+                    res.json({ message: 'Publicacion Guardada' });
                 }
             });
         } else {
             delete req.body.base64;
             delete req.body.extension;
             delete req.body.foto;
+
+            var now = new Date();
+            req.body.fecha = now;
 
             bcrypt.hash(req.body.pass, saltRounds).then((hash) => {
                 req.body.pass = hash
@@ -173,5 +175,5 @@ class UsuarioController {
     }
 }
 
-const usuarioController = new UsuarioController;
-export default usuarioController;
+const publicacionController = new PublicacionController;
+export default publicacionController;

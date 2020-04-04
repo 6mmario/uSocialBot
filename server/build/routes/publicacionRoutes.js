@@ -4,17 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const usuarioController_1 = __importDefault(require("../controllers/usuarioController"));
+const publicacionController_1 = __importDefault(require("../controllers/publicacionController"));
 class UsuarioRoutes {
     constructor() {
         this.router = express_1.Router();
         this.config();
     }
     config() {
-        this.router.post('/', usuarioController_1.default.create);
-        this.router.post('/OAuth', usuarioController_1.default.OAuth);
-        this.router.put('/:id', usuarioController_1.default.update);
-        // this.router.delete('/:id', gamesController.delete);
+        this.router.get('/index', publicacionController_1.default.index);
+        this.router.post('/', publicacionController_1.default.create);
+        this.router.post('/OAuth', publicacionController_1.default.OAuth);
+        this.router.put('/:id', publicacionController_1.default.update);
     }
 }
 exports.default = new UsuarioRoutes().router;

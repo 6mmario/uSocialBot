@@ -1,13 +1,14 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-
 import usuarioRoutes from './routes/usuarioRoutes';
+import publicacionRoutes from './routes/publicacionRoutes';
+const myParser = require("body-parser");
 
 class Server {
 
     public app: Application;
-    
+
     constructor() {
         this.app = express();
         this.config();
@@ -19,13 +20,16 @@ class Server {
 
         this.app.use(morgan('dev'));
         this.app.use(cors());
-        this.app.use(express.json());
-        this.app.use(express.urlencoded({extended: false}));
+       // this.app.use(express.json());
+        this.app.use(express.json({ limit: '200mb' }));
+        this.app.use(express.urlencoded({ limit: '200mb', extended: true }));
+        this.app.use(express.text({ limit: '200mb' }));
     }
 
     routes(): void {
         // this.app.use('/', indexRoutes);
         this.app.use('/usuario', usuarioRoutes);
+        this.app.use('/publicacion', publicacionRoutes);
     }
 
     start() {

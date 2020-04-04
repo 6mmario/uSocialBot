@@ -25,28 +25,31 @@ const s3 = new aws_sdk_1.default.S3({
     secretAccessKey: process.env.S3_SECRETKEY,
     apiVersion: process.env.API_VERSION
 });
-class UsuarioController {
-    // Registro 0-Sin Fotografia, 1-Con Fotografia
+class PublicacionController {
+    //Pruebas
+    index(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let now = new Date();
+            console.log('La fecha actual es', now);
+            console.log('UNIX time:', now.getTime());
+            res.json(now);
+        });
+    }
+    // Crear 0-Sin Fotografia, 1-Con Fotografia
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             var result = null;
-            const id = req.body.id_usuario;
-            const foto = req.body.foto;
+            const foto = req.body.imagen;
             let base64String = req.body.base64;
             let extension = req.body.extension;
             let filename = `${uuidv4_1.uuid()}.${extension}`;
-            // existe?
-            result = yield database_1.default.query('SELECT * FROM usuario WHERE id_usuario = ?', id);
-            if (result.length > 0) {
-                return res.json({ mensaje: 'Usaurio ya existe' });
-            }
             // tiene foto
             if (foto === 1) {
                 let encodIMG = base64String;
                 let decodIMG = Buffer.from(encodIMG, "base64");
                 //Parámetros para S3
                 let bucketname = "practica2-26";
-                let folder = "fotos/";
+                let folder = "publicaciones/";
                 let filepath = `${folder}${filename}`;
                 var params = {
                     Bucket: bucketname,
@@ -61,13 +64,12 @@ class UsuarioController {
                     else {
                         delete req.body.base64;
                         delete req.body.extension;
-                        delete req.body.foto;
-                        bcrypt_1.default.hash(req.body.pass, saltRounds).then((hash) => {
-                            req.body.pass = hash;
-                            req.body.urlimagen = data.Location;
-                            result = database_1.default.query('INSERT INTO usuario set ?', [req.body]);
-                            res.json({ message: 'Usuario guardado' });
-                        });
+                        delete req.body.imagen;
+                        const now = new Date();
+                        req.body.fecha = now;
+                        req.body.urlimagen = data.Location;
+                        result = database_1.default.query('INSERT INTO publicacion set ?', [req.body]);
+                        res.json({ message: 'Publicacion Guardada' });
                     }
                 });
             }
@@ -75,6 +77,8 @@ class UsuarioController {
                 delete req.body.base64;
                 delete req.body.extension;
                 delete req.body.foto;
+                var now = new Date();
+                req.body.fecha = now;
                 bcrypt_1.default.hash(req.body.pass, saltRounds).then((hash) => {
                     req.body.pass = hash;
                     result = database_1.default.query('INSERT INTO usuario set ?', [req.body]);
@@ -174,5 +178,5 @@ class UsuarioController {
         });
     }
 }
-const usuarioController = new UsuarioController;
-exports.default = usuarioController;
+const publicacionController = new PublicacionController;
+exports.default = publicacionController;
