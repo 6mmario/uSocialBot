@@ -11,10 +11,8 @@ class UsuarioRoutes {
         this.config();
     }
     config() {
-        this.router.get('/index', publicacionController_1.default.index);
         this.router.post('/', publicacionController_1.default.create);
-        this.router.post('/OAuth', publicacionController_1.default.OAuth);
-        this.router.put('/:id', publicacionController_1.default.update);
+        this.router.get('/', publicacionController_1.default.todasPublicaciones);
     }
 }
 exports.default = new UsuarioRoutes().router;
