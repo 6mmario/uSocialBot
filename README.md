@@ -6,7 +6,9 @@
 - Mario Obed Morales Guitz 201213283
 - Sandy Fabiola Merida Hernandez 201020126
 
-# APP
+# APP Angular
+Color 1: #feeb97
+<span style="color: #feeb97 ">some **1** text</span>
 
 Color 2: #4fb783
 <span style="color: #4fb783 ">some **2** text</span>
@@ -36,22 +38,3 @@ https://getbootstrap.com/docs/4.4/getting-started/introduction/
 
 | Metodo | Ruta                                   | Descripcion                                                               |
 |--------|----------------------------------------|---------------------------------------------------------------------------|
-
-# VPC
-|Nombre |Red        |
-|-------|-----------|
-|VPC-G26|10.0.0.0/16|
-
-# Subredes
-|Nombre    |Red          |Acceso   |
-|----------|-------------|---------|
-| Web Site | 10.0.1.0/24 | Public  |
-| Server   | 10.0.2.0/24 | Private |
-| DB       | 10.0.3.0/24 | Private |
-
-# EC2
-|Rol      | Nombre              | Puertos  | 
-|---------|---------------------|----------|
-|Web Site | semi1-prac2-WebSite | 80 y 22  |
-|Server   | semi1-prac2-Server  | 3000 y 22|
-|DB       | semi1-prac2-BD      | 3306 y 22|
