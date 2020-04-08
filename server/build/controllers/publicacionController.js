@@ -77,12 +77,7 @@ class PublicacionController {
     // Mostrar Todo
     todasPublicaciones(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield database_1.default.query('SELECT p.id_publicacion AS PUBLICACION, p.fecha AS FECHA, p.texto AS TEXTO, p.urlimagen AS IPUBLICACION, u.urlimagen AS IUSUARIO, u.nickname AS NICKNAME FROM publicacion p INNER JOIN usuario u ON p.USUARIO_id_usuario = u.id_usuario ORDER BY fecha DESC');
-            delete result.USUARIO_id_usuario;
-            delete result.id_usuario;
-            delete result.nombre;
-            delete result.pass;
-            
+            const result = yield database_1.default.query('SELECT * FROM publicacion order by fecha DESC');
             res.json(result);
         });
     }
