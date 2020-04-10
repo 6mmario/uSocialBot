@@ -33,6 +33,11 @@ https://getbootstrap.com/docs/4.4/getting-started/introduction/
 
 | Metodo | Ruta                                   | Descripcion                                                               |
 |--------|----------------------------------------|---------------------------------------------------------------------------|
+| POST   | http://ip:3000/usuario                 | Guarda a un usuario                                                       |
+| POST   | http://ip:3000/usuario/OAuth           | Login                                                                     |
+| PUT    | http://ip:3000/usuario/:id             | Actualizacion de un usuario                                               |
+| POST   | http://ip:3000/publicacion             | Creacion de una nueva publicacion                                         |
+| GET    | http://ip:3000/publicacion             | Obtiene todo el listado de las publicaciones                              |
 
 # Rutas del serverless
 
