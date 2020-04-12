@@ -55,8 +55,9 @@ export class LoginComponent implements OnInit {
             }else{
               console.log(res);
               this.loginServices.setUser(res);
-              this.router.navigate(['registro']);
-              //this.router.navigate(['publicaciones']);
+              //location.reload();
+              this.router.navigate(['profile']);
+              
             }
         },
         err =>{ 
