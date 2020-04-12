@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
+        <!--Parte de Amigos-->
+        <div class="col-md-4 col-xl-3 bd-sidebar">
+            <p>AQUI APARECERAN LOS AMIGOS</p>
+        </div>
+
+        <!--Parte de Publicaciones-->
+        <main class="col-md-8 col-xl-9 py-md-3 pl-md-5 bd-content" role="main">
+            <div class="card col-md-8" style="width: 36rem;">
+                <img *ngIf="this.suImagen == 1" [src]="cardImageBase64" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <label for="validationTextarea">Crear Publicacion</label>
+                    <textarea class="form-control" id="validationTextarea" placeholder="Qué estás pensando?" [(ngModel)]="publicacion.texto"
+                        required></textarea>
+                    <hr>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-primary" (click)="guardarPublicacion()">Publicar</button>
+                        <div *ngIf="this.suImagen != 1" class="custom-file">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" (change)="cargandoImagen($event)" required>
+                            <label class="custom-file-label" for="validatedCustomFile"><i class="fas fa-images"></i></label>
+                            <div class="invalid-feedback">Selecciona Imagen</div>
+                        </div>
+                        <button *ngIf="this.suImagen == 1" type="button" class="btn btn-outline-primary" (click)="borrarImagen()"><i class="fas fa-times"></i></button>
+                      </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="card mb-3"  *ngFor="let publicacion of publicaciones">
+    <div class="card-header">
+        <div class="row justify-content-between">
+            <div class="col-4">
+                {{publicacion.nickname}}
+            </div>
+            <div class="col-4">
+                {{publicacion.fecha | date: 'yyyy-MM-dd HH:MM'}}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <img style="width: 55%; height: 55%;" *ngIf="publicacion.urlimagen != ''" center  [src]="publicacion.urlimagen" class="card-img-top" >
+        <p class="card-text">
+            {{publicacion.texto}}
+        </p>
+    </div>
+</div>

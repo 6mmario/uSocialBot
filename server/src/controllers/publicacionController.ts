@@ -71,7 +71,7 @@ class PublicacionController {
 
     // Mostrar Todo
     public async todasPublicaciones(req: Request, res: Response): Promise<void> {
-        const result  = await pool.query('SELECT * FROM publicacion order by fecha DESC');
+        const result  = await pool.query('SELECT p.id_publicacion, u.nickname, p.texto, p.fecha, p.urlimagen FROM publicacion p INNER JOIN usuario u ON u.id_usuario = p.USUARIO_id_usuario ORDER BY p.fecha DESC');
         res.json(result);
     }
 }
