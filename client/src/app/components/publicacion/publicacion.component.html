@@ -8,12 +8,21 @@
         <!--Parte de Publicaciones-->
         <main class="col-md-8 col-xl-9 py-md-3 pl-md-5 bd-content" role="main">
             <div class="card col-md-8" style="width: 36rem;">
-                <img *ngIf="this.suImagen == 0" [src]="cardImageBase64" class="card-img-top" alt="...">
+                <img *ngIf="this.suImagen == 1" [src]="cardImageBase64" class="card-img-top" alt="...">
                 <div class="card-body">
                     <label for="validationTextarea">Crear Publicacion</label>
-                    <textarea class="form-control" id="validationTextarea" placeholder="Qué estás pensando?"
+                    <textarea class="form-control" id="validationTextarea" placeholder="Qué estás pensando?" [(ngModel)]="publicacion.texto"
                         required></textarea>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <hr>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-primary" (click)="guardarPublicacion()">Publicar</button>
+                        <div *ngIf="this.suImagen != 1" class="custom-file">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" (change)="cargandoImagen($event)" required>
+                            <label class="custom-file-label" for="validatedCustomFile"><i class="fas fa-images"></i></label>
+                            <div class="invalid-feedback">Selecciona Imagen</div>
+                        </div>
+                        <button *ngIf="this.suImagen == 1" type="button" class="btn btn-outline-primary" (click)="borrarImagen()"><i class="fas fa-times"></i></button>
+                      </div>
                 </div>
             </div>
         </main>
