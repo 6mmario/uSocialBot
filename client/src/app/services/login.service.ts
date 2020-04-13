@@ -26,13 +26,11 @@ export class LoginService {
     localStorage.setItem("id_usuario", user_string.id_usuario);
     localStorage.setItem("nombre", user_string.nombre);
     localStorage.setItem("nickname", user_string.nickname);
-    localStorage.setItem("urlimagen", user_string.urlimagen);
   }
 
   logoutUser():void {
     localStorage.removeItem("id_usuario");
     localStorage.removeItem("nombre");
     localStorage.removeItem("nickname");
-    localStorage.removeItem("urlimagen");
   }
 }

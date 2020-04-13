@@ -29,7 +29,6 @@ export class ProfileComponent implements OnInit {
 
   datosObligarios:boolean=true;
   actualizado:boolean=false;
-  nuevaFoto:boolean=false;
 
   constructor(private loginServices:LoginService, private router:Router) { }
 
@@ -38,7 +37,6 @@ export class ProfileComponent implements OnInit {
     this.usuario.id_usuario=localStorage.getItem("id_usuario");
     this.usuario.nombre=localStorage.getItem("nombre");
     this.usuario.nickname=localStorage.getItem("nickname");
-    this.usuario.foto=0;
   }
 
   update() {
@@ -67,7 +65,7 @@ export class ProfileComponent implements OnInit {
       this.datosObligarios=false;
       this.actualizado=false;
     }
-    //window.location.reload();
+    window.location.reload();
   }
 
   cargandoImagen(fileInput: any){
