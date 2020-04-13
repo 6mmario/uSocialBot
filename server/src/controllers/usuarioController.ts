@@ -178,6 +178,15 @@ class UsuarioController {
             const result  = await pool.query('SELECT u.nickname, u.urlimagen FROM usuario u');
             res.json(result);
         }
+
+        // DATA
+        public async myData(req: Request, res: Response): Promise<any> {
+                const  { id }  = req.params;
+                const usuario = await pool.query('SELECT * FROM usuario WHERE id_usuario = ?', id);               
+                        delete usuario[0].pass;
+                        return res.json(usuario[0]); 
+            }
+        
 }
 
 const usuarioController = new UsuarioController;
