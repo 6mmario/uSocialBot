@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.onCheckUser();
+    
   }
 
   salir():void{
@@ -29,10 +30,8 @@ export class NavbarComponent implements OnInit {
   onCheckUser(): void {
     if (localStorage.getItem("id_usuario") == null) {
       this.isLogged = false;
-      console.log('no '+localStorage.getItem("id_usuario") );
     } else {
       this.isLogged = true;
-      console.log('si '+localStorage.getItem("id_usuario") );
     }
   }
 

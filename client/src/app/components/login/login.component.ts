@@ -50,18 +50,16 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (res:any) => {
             if(res.mensaje=="Error en la contrasenia"){
-              console.log('Contraseña erronea');
               this.contraseniaError=true;
             }else{
-              console.log(res);
+              //console.log(res);
               this.loginServices.setUser(res);
-              //location.reload();
+              //window.location.reload();
               this.router.navigate(['profile']);
-              
             }
         },
         err =>{ 
-          console.log(err);
+          //console.log(err);
           this.datosError=true;
         }      
       );

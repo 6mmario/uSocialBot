@@ -1,1 +1,115 @@
-<p>profile works!</p>
+
+<div class="row">
+<div class="col">
+    <div class="card card-body text-center">
+        <h4>Correo: {{usuario.id_usuario}}</h4>
+        <h3> {{usuario.nombre == '' ? 'Nombre Completo ' : usuario.nombre}}</h3>
+        <p>@{{usuario.nickname == '' ? 'Nickname' : usuario.nickname}}</p>
+        <div class="img-space">
+            <img [src]="usuario.foto == 0 ? '/assets/placeholder.png' : cardImageBase64" alt="No Image"
+                class="card-img-top">
+        </div>
+    </div>
+</div>
+
+<div class="col">
+    <div class="card">
+        <div *ngIf ="datosObligarios == false " class="alert alert-danger" role="alert">
+            Nombre y Nickname son obligatorio
+        </div>
+
+        <div class="card-body">
+            <div class="p-3 mb-2 text-dark" style="text-align: center;" >
+                <h2>Bienvenido {{usuario.id_usuario}}</h2> 
+            </div>
+            <form class="was-validated">
+
+                <!-- Nombre Completo -->
+                <div class="form-group">
+                    <label for="validationServer01"><h5>Nombre Completo</h5></label>
+                    <label class="sr-only" for="validationServerNombre">Nombre Completo</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <input type="text" name="nombre" id="validationServerNombre" [(ngModel)]="usuario.nombre"
+                            placeholder="Ingresa Nombre Completo" class="form-control  is-invalid"
+                            aria-describedby="inputGroupPrepend3" required>
+                    </div>
+                </div>
+
+                <!-- Nickname -->
+                <div class="form-group">
+                    <label for="validationServer01"><h5>Nickname</h5></label>
+                    <label class="sr-only" for="validationServerNickname">Nickname</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fab fa-megaport"></i>
+                            </div>
+                        </div>
+                        <input type="text" name="nickname" id="validationServerNickname" [(ngModel)]="usuario.nickname"
+                            placeholder="Ingresa Nickname" class="form-control  is-invalid"
+                            aria-describedby="inputGroupPrepend3" required>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="validationServer01"><h5>Contrase&ntilde;a</h5></label>
+                    <label class="sr-only" for="validationServerPassword">Password</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-key"></i>
+                            </div>
+                        </div>
+                        <input type="password" name="pass" id="validationServerPassword" [(ngModel)]="usuario.pass"
+                            placeholder="Contrase&ntilde;a" class="form-control  is-invalid"
+                            aria-describedby="inputGroupPrepend3" required>
+                        <div class="invalid-feedback">
+                                Opcional
+                        </div>
+                    </div>
+                </div>
+
+                <!--Subir Foto -->
+                <label for="validationServer01"><h5>Foto de perfil</h5></label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="validatedCustomFile" (change)="cargandoImagen($event)" required>
+                    <label class="custom-file-label" for="validatedCustomFile">Cargar imagen</label>
+                    <div class="invalid-feedback">Opcional</div>
+                </div>                
+
+                
+                
+                <!-- Boton Update -->
+                <label></label>
+                <button type="button"  class="btn btn-success btn-block" (click)="update()" data-toggle="modal" data-target=".bd-example-modal-sm">
+                    Update
+                </button>
+
+                <!-- Modal -->
+                <div *ngIf="actualizado==true" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"  aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Update {{usuario.id_usuario}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Actualizacion exitosa</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-primary" href="#" role="button">Home</a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                        </div>
+                    </div>
+                </div>                
+            </form>
+        </div>
+    </div>
+</div>
+</div>
