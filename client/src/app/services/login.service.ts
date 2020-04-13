@@ -8,7 +8,7 @@ import { UsuarioUpdate } from '../models/usuarioUpdate';
 })
 export class LoginService {
 
-  API_URI='http://localhost:3000/';
+  API_URI='http://10.0.2.210:3000/';
 
   constructor(private http: HttpClient) { }
 
