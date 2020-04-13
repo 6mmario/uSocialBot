@@ -32,6 +32,11 @@ class Server {
     start() {
         this.app.listen(this.app.get('port'), () => {
             console.log('Server on port', this.app.get('port'));
+            console.log(process.env.HOST);
+            console.log(process.env.UDATABASE);
+            console.log(process.env.PASSWORD);
+            console.log(process.env.DATABASE);
+            console.log(process.env.PUERTO);
         });
     }
 }
