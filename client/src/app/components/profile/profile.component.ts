@@ -34,11 +34,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem("id_usuario") === null) { this.router.navigate(['login']); }
-    
-    this.usuario.id_usuario = localStorage.getItem("id_usuario");
-    this.usuario.nombre = localStorage.getItem("nombre");
-    this.usuario.nickname = localStorage.getItem("nickname");
-    this.usuario.urlimagen = localStorage.getItem("urlimagen");
+    this.usuario.id_usuario=localStorage.getItem("id_usuario");
+    this.obtenerDatos();
   }
 
   update() {
@@ -60,10 +57,14 @@ export class ProfileComponent implements OnInit {
           (res:any) => {
             console.log(res);
             //Actualizando LocalStorage
-            localStorage.setItem("id_usuario", this.usuario.id_usuario);
-            localStorage.setItem("nombre", this.usuario.nombre);
-            localStorage.setItem("nickname", this.usuario.nickname);
-            localStorage.setItem("urlimagen", "/assets/placeholder.png");
+            this.usuario.id_usuario=res.id_usuario;
+            this.usuario.nombre=res.nombre;
+            this.usuario.nickname=res.nickname;
+            this.usuario.urlimagen=res.urlimagen;
+            localStorage.setItem("nombre", res.nombre);
+            localStorage.setItem("nickname", res.nickname);
+            localStorage.setItem("urlimagen", res.urlimagen);
+            window.location.reload();
           },
           err => {
             console.log(err);
@@ -74,7 +75,7 @@ export class ProfileComponent implements OnInit {
       this.datosObligarios = false;
       this.actualizado = false;
     }
-   // window.location.reload();
+   window.location.reload();
   }
 
   cargandoImagen(fileInput: any) {
@@ -126,6 +127,24 @@ export class ProfileComponent implements OnInit {
       };
       reader.readAsDataURL(fileInput.target.files[0]);
     }
+  }
+
+  obtenerDatos(){
+    this.loginServices.getDatos(localStorage.getItem("id_usuario"))
+        .subscribe(
+          (res:any)=>{
+            this.usuario.nombre=res.nombre;
+            this.usuario.nickname=res.nickname;
+            this.usuario.urlimagen=res.urlimagen;
+            localStorage.setItem("nombre", res.nombre);
+            localStorage.setItem("nickname", res.nickname);
+            localStorage.setItem("urlimagen", res.urlimagen);
+          },
+          err=>{
+            console.log(err);
+          }
+        );
+        
   }
 
 

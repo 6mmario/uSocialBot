@@ -24,11 +24,12 @@ export class PublicacionComponent implements OnInit {
 
   publicaciones: any = [];
   amigos: any = [];
-
+  us:string="";
   constructor(private publicacionServices: PublicacionService, private router: Router) { }
 
   ngOnInit(): void {
     if (localStorage.getItem("id_usuario") === null) { this.router.navigate(['login']); }
+    this.us=localStorage.getItem("nickname");
     this.obtenerTodas();
     this.listaAmigos();
   }

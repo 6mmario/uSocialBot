@@ -19,4 +19,8 @@ export class LoginService {
   updateUser(id:string, usuario:UsuarioUpdate){
       return this.http.put(`${this.API_URI}usuario/${id}`, usuario);
   }
+
+  getDatos(id:string){
+    return this.http.get(`${this.API_URI}usuario/${id}`);
+  }
 }

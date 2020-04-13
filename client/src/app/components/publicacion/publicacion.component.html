@@ -1,5 +1,6 @@
 <div style="text-align: center;">
     <img src="/assets/logoUlogin.jpeg" >
+    <h2>@{{us}}</h2>
 </div>
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
@@ -34,7 +35,7 @@
                 <img *ngIf="this.suImagen == 1" [src]="cardImageBase64" class="card-img-top" alt="...">
                 <div class="card-body">
                     <label for="validationTextarea"><h2>Crear Publicacion</h2></label>
-                    <textarea class="form-control" id="validationTextarea" placeholder="Qué estás pensando?"
+                    <textarea class="form-control" id="validationTextarea" placeholder="@{{us}} Qué estás pensando?"
                         [(ngModel)]="publicacion.texto" required></textarea>
                     <hr>
                     <div class="btn-group" role="group" aria-label="Basic example">

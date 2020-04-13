@@ -3,6 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
   public usuario="";
 
   ngOnInit(): void {
+    this.obtenerDatos();
     this.onCheckUser();
     
   }
@@ -36,7 +38,23 @@ export class NavbarComponent implements OnInit {
     } else {
       this.isLogged = true;
       this.usuario =localStorage.getItem("nickname");
+      console.log('accc');
     }
+  }
+
+  obtenerDatos(){
+    this.logoutUser.getDatos(localStorage.getItem("id_usuario"))
+        .subscribe(
+          (res:any)=>{
+            localStorage.setItem("nombre", res.nombre);
+            localStorage.setItem("nickname", res.nickname);
+            localStorage.setItem("urlimagen", res.urlimagen);
+          },
+          err=>{
+            console.log(err);
+          }
+        );
+        
   }
 
 
