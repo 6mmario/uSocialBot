@@ -15,7 +15,6 @@ class UsuarioRoutes {
         this.router.post('/OAuth', usuarioController_1.default.OAuth);
         this.router.put('/:id', usuarioController_1.default.update);
         this.router.get('/', usuarioController_1.default.todosAmigos);
-        this.router.get('/:id', usuarioController_1.default.myData);
     }
 }
 exports.default = new UsuarioRoutes().router;
