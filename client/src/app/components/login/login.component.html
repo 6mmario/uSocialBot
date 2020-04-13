@@ -1,1 +1,69 @@
-<p>login works!</p>
+<div class="col-md-6 offset-md-3">
+    <div class="card">
+        <!-- Error de ingreso de datos -->
+        <div *ngIf ="loginError == true && datosError==false" class="alert alert-danger" role="alert">
+            Ingrese su correo y contraseña.
+          </div>
+        <!-- Error de ingreso de datos -->
+        <div *ngIf ="datosError == true && loginError==false" class="alert alert-danger" role="alert">
+            El usuario y la contraseña no coinciden.
+          </div>
+          <!-- Error de ingreso de datos -->
+        <div *ngIf ="contraseniaError == true" class="alert alert-danger" role="alert">
+            Contraseña erronea.
+          </div>
+
+        <div class="card-body">
+            <form class="was-validated">
+                
+                <!-- Titulo -->
+                <div class="p-3 mb-2 text-dark" style="text-align: center;">
+                    <img src="/assets/logoUlogin.jpeg" class="img-thumbnail">
+                    <h2>Acceder</h2>
+                    <h5>Ir a uSocial</h5>
+                  </div>
+
+                <!-- Correo Electroncico -->
+                <div class="form-group">
+                    <label class="sr-only" for="validationServerEmail">Email</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-envelope-square"></i>
+                            </div>
+                        </div>
+                        <input type="email" name="id_usuario" id="validationServerEmail" [(ngModel)]="usuario.id_usuario"
+                               placeholder="correo electronico" class="form-control  is-invalid"
+                               aria-describedby="inputGroupPrepend3" required>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label class="sr-only" for="validationServerPassword">Password</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fas fa-key"></i>
+                            </div>
+                        </div>
+                        <input type="password" name="pass" id="validationServerPassword" [(ngModel)]="usuario.pass"
+                               placeholder="Contrase&ntilde;a" class="form-control  is-invalid"
+                               aria-describedby="inputGroupPrepend3" required>
+                    </div>
+                </div>
+                
+                <!--Boton ingresar -->
+                <button class="btn btn-success btn-block" (click)="ingresar()">
+                    Ingresar
+                </button>
+
+                <div class="text-decoration-none" style="text-align: center;">
+                    <h5>
+                        <a href="registro" >¿Eres nuevo? Registrate</a>
+                    </h5>
+                    
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
