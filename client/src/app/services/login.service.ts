@@ -18,19 +18,5 @@ export class LoginService {
 
   updateUser(id:string, usuario:UsuarioUpdate){
       return this.http.put(`${this.API_URI}usuario/${id}`, usuario);
-
-  }
-
-  setUser(user: UsuarioLogin): void {
-    var user_string = user;
-    localStorage.setItem("id_usuario", user_string.id_usuario);
-    localStorage.setItem("nombre", user_string.nombre);
-    localStorage.setItem("nickname", user_string.nickname);
-  }
-
-  logoutUser():void {
-    localStorage.removeItem("id_usuario");
-    localStorage.removeItem("nombre");
-    localStorage.removeItem("nickname");
   }
 }

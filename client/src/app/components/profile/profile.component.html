@@ -1,4 +1,7 @@
 
+<div style="text-align: center;">
+    <img src="/assets/logoUlogin.jpeg" >
+</div>
 <div class="row">
 <div class="col">
     <div class="card card-body text-center">
@@ -6,7 +9,7 @@
         <h3> {{usuario.nombre == '' ? 'Nombre Completo ' : usuario.nombre}}</h3>
         <p>@{{usuario.nickname == '' ? 'Nickname' : usuario.nickname}}</p>
         <div class="img-space">
-            <img [src]="usuario.foto == 0 ? '/assets/placeholder.png' : cardImageBase64" alt="No Image"
+            <img [src]="usuario.foto == 0 ? usuario.urlimagen : cardImageBase64" alt="No Image"
                 class="card-img-top">
         </div>
     </div>

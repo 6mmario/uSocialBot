@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding  } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import * as _ from 'lodash';
 
@@ -18,10 +18,10 @@ export class UsuarioComponent implements OnInit {
   isImageSaved: boolean;
   cardImageBase64: string;
   usuario: Usuario = {
-    id_usuario: '', // agregado
-    nombre: '', // agregado
+    id_usuario: '', 
+    nombre: '', 
     urlimagen: '', 
-    nickname: '', // agregado
+    nickname: '', 
     pass: '',
     rpassword: '',
     base64: '',
@@ -33,10 +33,10 @@ export class UsuarioComponent implements OnInit {
   usuarioError : boolean = false;
   rpas: boolean = false;
 
-  constructor(private usuarioServices: UsuarioService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private usuarioServices: UsuarioService, private router: Router) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem("id_usuario") !== null) { this.router.navigate(['publicaciones']); }
+    if (localStorage.getItem("id_usuario") !== null) { this.router.navigate(['publicacion']);}
   }
 
   saveNewUser(){

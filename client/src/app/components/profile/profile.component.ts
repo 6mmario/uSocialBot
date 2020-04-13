@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
     this.usuario.id_usuario = localStorage.getItem("id_usuario");
     this.usuario.nombre = localStorage.getItem("nombre");
     this.usuario.nickname = localStorage.getItem("nickname");
-
+    this.usuario.urlimagen = localStorage.getItem("urlimagen");
   }
 
   update() {
@@ -57,14 +57,13 @@ export class ProfileComponent implements OnInit {
       var id = localStorage.getItem("id_usuario");
       this.loginServices.updateUser(id, this.usuario)
         .subscribe(
-          res => {
+          (res:any) => {
             console.log(res);
             //Actualizando LocalStorage
             localStorage.setItem("id_usuario", this.usuario.id_usuario);
             localStorage.setItem("nombre", this.usuario.nombre);
             localStorage.setItem("nickname", this.usuario.nickname);
-
-            console.log(this.usuario.base64);
+            localStorage.setItem("urlimagen", "/assets/placeholder.png");
           },
           err => {
             console.log(err);
@@ -75,7 +74,7 @@ export class ProfileComponent implements OnInit {
       this.datosObligarios = false;
       this.actualizado = false;
     }
-    window.location.reload();
+   // window.location.reload();
   }
 
   cargandoImagen(fileInput: any) {
@@ -125,7 +124,6 @@ export class ProfileComponent implements OnInit {
           }
         };
       };
-
       reader.readAsDataURL(fileInput.target.files[0]);
     }
   }

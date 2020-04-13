@@ -16,7 +16,7 @@ export class PublicacionComponent implements OnInit {
   publicacion: Publicacion = {
     texto: '',
     urlimagen: '',
-    USUARIO_id_usuario: 'mmario_93@hotmail.es',
+    USUARIO_id_usuario: '',
     base64: '',
     extension: '',
     imagen: 0,
@@ -34,6 +34,7 @@ export class PublicacionComponent implements OnInit {
   }
 
   obtenerTodas(){
+    this.publicacion.USUARIO_id_usuario=localStorage.getItem("id_usuario");
     this.publicacionServices.getAll().subscribe(
       res => {
         this.publicaciones = res;
