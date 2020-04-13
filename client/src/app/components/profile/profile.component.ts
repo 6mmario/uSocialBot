@@ -43,6 +43,14 @@ export class ProfileComponent implements OnInit {
 
   update() {
     if (this.usuario.nombre != "" && this.usuario.nickname != "") {
+
+      if(this.usuario.foto === 1){
+        if(this.usuario.extension !== 'jpg'){
+          this.usuario.base64 = this.usuario.base64.replace('data:image/'+this.usuario.extension+';base64,','');
+        }
+        this.usuario.base64 = this.usuario.base64.replace('data:image/jpeg;base64,','');
+      }
+      
       this.datosObligarios = true;
       this.actualizado = true;
 

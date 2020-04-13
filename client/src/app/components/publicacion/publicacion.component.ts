@@ -23,6 +23,7 @@ export class PublicacionComponent implements OnInit {
   }
 
   publicaciones: any = [];
+  amigos: any = [];
 
   constructor(private publicacionServices: PublicacionService, private router: Router) { }
 
@@ -121,8 +122,8 @@ export class PublicacionComponent implements OnInit {
   listaAmigos(){
     this.publicacionServices.getAmigos().subscribe(
       res => {
-        console.log(res);
-        
+        this.amigos = res;
+
       },
       err => console.log(err)
     );

@@ -36,25 +36,32 @@ export class UsuarioComponent implements OnInit {
   constructor(private usuarioServices: UsuarioService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-
+    if (localStorage.getItem("id_usuario") !== null) { this.router.navigate(['publicaciones']); }
   }
 
   saveNewUser(){
     delete this.usuario.rpassword
-    console.log(this.usuario);
+
+    if(this.usuario.extension !== 'jpg'){
+      this.usuario.base64 = this.usuario.base64.replace('data:image/'+this.usuario.extension+';base64,','');
+    }
+    this.usuario.base64 = this.usuario.base64.replace('data:image/jpeg;base64,','');
+
+    
     if(this.usuario.id_usuario === '' || this.usuario.nickname === '' || this.usuario.nombre === '' || this.usuario.pass === '' || this.rpas === false){
       this.usuarioError = true;
     } else {
-      console.log('no hay errores')
       this.usuarioError = false;
+      
       this.usuarioServices.saveUsuario(this.usuario).
       subscribe(
         res => {
           console.log(res);
-          this.router.navigate(['/registro']);
+          this.router.navigate(['/login']);
         },
         err => console.log(err)
       );
+      
     }
   }
 
