@@ -7,9 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-          <a *ngIf="isLogged  == true" class="nav-link" href="profile"  >Perfil<span class="sr-only">(current)</span></a>
-        <li class="nav-item">
-          <a *ngIf="isLogged" class="nav-link" routerLink="/publicacion" routerLinkActive="active">Publicaciones</a>
+          <a *ngIf="isLogged" class="nav-link" routerLink="/profile">Perfil<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a *ngIf="isLogged" class="nav-link" routerLink="/publicacion">Publicaciones<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
           <a *ngIf="isLogged" class="nav-link" (click)="salir()"  routerLink="/login" >Logout<span class="sr-only">(current)</span></a>

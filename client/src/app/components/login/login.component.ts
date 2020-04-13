@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     
-    if (localStorage.getItem("id_usuario") !== null) { this.router.navigate(['profile']);}
+    if (localStorage.getItem("id_usuario") !== null) { this.router.navigate(['publicacion']);}
   }
 
   ingresar() {
@@ -54,14 +54,14 @@ export class LoginComponent implements OnInit {
             if (res.mensaje == "Error en la contrasenia") {
               this.contraseniaError = true;
             } else {
-              //console.log(res);
-              this.loginServices.setUser(res);
+              localStorage.setItem("id_usuario", res.id_usuario);
+              localStorage.setItem("nombre", res.nombre);
+              localStorage.setItem("nickname", res.nickname);
+              localStorage.setItem("urlimagen",res.urlimagen);
               window.location.reload();
-              //this.router.navigate(['profile']);
             }
           },
           err => {
-            //console.log(err);
             this.datosError = true;
           }
         );

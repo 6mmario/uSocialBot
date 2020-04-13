@@ -39,6 +39,8 @@ https://getbootstrap.com/docs/4.4/getting-started/introduction/
 | POST   | http://ip:3000/publicacion             | Creacion de una nueva publicacion                                         |
 | GET    | http://ip:3000/publicacion             | Obtiene todo el listado de las publicaciones                              |
 | GET    | http://ip:3000/usuario                 | Obtiene todo el listado de los amigos                                     |
+| GET    | http://ip:3000/usuario/:id                 | Obtiene los datos del usuario                                     |
+
 
 # Rutas del serverless
 

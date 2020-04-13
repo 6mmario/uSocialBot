@@ -8,7 +8,7 @@ import { UsuarioUpdate } from '../models/usuarioUpdate';
 })
 export class LoginService {
 
-  API_URI='http://localhost:3000/';
+  API_URI='http://10.0.2.210:3000/';
 
   constructor(private http: HttpClient) { }
 
@@ -18,19 +18,9 @@ export class LoginService {
 
   updateUser(id:string, usuario:UsuarioUpdate){
       return this.http.put(`${this.API_URI}usuario/${id}`, usuario);
-
   }
 
-  setUser(user: UsuarioLogin): void {
-    var user_string = user;
-    localStorage.setItem("id_usuario", user_string.id_usuario);
-    localStorage.setItem("nombre", user_string.nombre);
-    localStorage.setItem("nickname", user_string.nickname);
-  }
-
-  logoutUser():void {
-    localStorage.removeItem("id_usuario");
-    localStorage.removeItem("nombre");
-    localStorage.removeItem("nickname");
+  getDatos(id:string){
+    return this.http.get(`${this.API_URI}usuario/${id}`);
   }
 }

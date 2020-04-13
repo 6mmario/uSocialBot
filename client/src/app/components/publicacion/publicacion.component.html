@@ -1,15 +1,19 @@
+<div style="text-align: center;">
+    <img src="/assets/logoUlogin.jpeg" >
+    <h2>@{{us}}</h2>
+</div>
 <div class="container-fluid">
     <div class="row flex-xl-nowrap">
         <!--Parte de Amigos-->
         <div class="col-md-4 col-xl-3 bd-sidebar">
-            <p class="h4">Mis Amigos</p>
+            <p class="h2">Mis Amigos</p>
             <div class="accordion" id="accordionExample">
                 <div *ngFor = "let amigo of amigos; index as i;" class="card">
                     <div class="card-header" id="heading{{i}}">
                         <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" attr.data-target="#collapse{{i}}"
+                            <button class="btn btn-link"  type="button" data-toggle="collapse" attr.data-target="#collapse{{i}}"
                                 aria-expanded="true"  attr.aria-controls="collapse{{i}}" >
-                                {{amigo.nickname}}
+                                @{{amigo.nickname}}
                             </button>
                         </h2>
                     </div>
@@ -30,8 +34,8 @@
             <div class="card col-md-8" style="width: 36rem;">
                 <img *ngIf="this.suImagen == 1" [src]="cardImageBase64" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <label for="validationTextarea">Crear Publicacion</label>
-                    <textarea class="form-control" id="validationTextarea" placeholder="Qué estás pensando?"
+                    <label for="validationTextarea"><h2>Crear Publicacion</h2></label>
+                    <textarea class="form-control" id="validationTextarea" placeholder="@{{us}} Qué estás pensando?"
                         [(ngModel)]="publicacion.texto" required></textarea>
                     <hr>
                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -53,22 +57,23 @@
     </div>
 </div>
 
+<label for="validationTextarea"><h2>Timeline</h2></label>
 <div class="card mb-3" *ngFor="let publicacion of publicaciones">
     <div class="card-header">
         <div class="row justify-content-between">
             <div class="col-4">
-                {{publicacion.nickname}}
+                <h5>@{{publicacion.nickname}}</h5>
             </div>
             <div class="col-4">
-                {{publicacion.fecha | date: 'yyyy-MM-dd HH:MM'}}
+                <h6>{{publicacion.fecha | date: 'yyyy-MM-dd HH:MM'}}</h6>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <img style="width: 55%; height: 55%;" *ngIf="publicacion.urlimagen != ''" center [src]="publicacion.urlimagen"
-            class="card-img-top">
         <p class="card-text">
             {{publicacion.texto}}
         </p>
+        <img style="width: 55%; height: 55%;" *ngIf="publicacion.urlimagen != ''" center [src]="publicacion.urlimagen"
+            class="card-img-top">
     </div>
 </div>
