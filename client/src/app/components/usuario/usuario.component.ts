@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding  } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import * as _ from 'lodash';
 
@@ -18,10 +18,10 @@ export class UsuarioComponent implements OnInit {
   isImageSaved: boolean;
   cardImageBase64: string;
   usuario: Usuario = {
-    id_usuario: '', // agregado
-    nombre: '', // agregado
+    id_usuario: '', 
+    nombre: '', 
     urlimagen: '', 
-    nickname: '', // agregado
+    nickname: '', 
     pass: '',
     rpassword: '',
     base64: '',
@@ -33,28 +33,35 @@ export class UsuarioComponent implements OnInit {
   usuarioError : boolean = false;
   rpas: boolean = false;
 
-  constructor(private usuarioServices: UsuarioService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private usuarioServices: UsuarioService, private router: Router) { }
 
   ngOnInit(): void {
-
+    if (localStorage.getItem("id_usuario") !== null) { this.router.navigate(['publicacion']);}
   }
 
   saveNewUser(){
     delete this.usuario.rpassword
-    console.log(this.usuario);
+
+    if(this.usuario.extension !== 'jpg'){
+      this.usuario.base64 = this.usuario.base64.replace('data:image/'+this.usuario.extension+';base64,','');
+    }
+    this.usuario.base64 = this.usuario.base64.replace('data:image/jpeg;base64,','');
+
+    
     if(this.usuario.id_usuario === '' || this.usuario.nickname === '' || this.usuario.nombre === '' || this.usuario.pass === '' || this.rpas === false){
       this.usuarioError = true;
     } else {
-      console.log('no hay errores')
       this.usuarioError = false;
+      
       this.usuarioServices.saveUsuario(this.usuario).
       subscribe(
         res => {
           console.log(res);
-          this.router.navigate(['/registro']);
+          this.router.navigate(['/login']);
         },
         err => console.log(err)
       );
+      
     }
   }
 

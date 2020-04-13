@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 import { PublicacionComponent } from './components/publicacion/publicacion.component';
 
@@ -17,6 +18,7 @@ import { PublicacionComponent } from './components/publicacion/publicacion.compo
     LoginComponent,
     UsuarioComponent,
     NavbarComponent,
+    ProfileComponent,
     PublicacionComponent
   ],
   imports: [

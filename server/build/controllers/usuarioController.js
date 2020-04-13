@@ -157,6 +157,7 @@ class UsuarioController {
                 delete req.body.base64;
                 delete req.body.extension;
                 delete req.body.foto;
+                delete req.body.urlimagen;
                 // pass cambiado
                 if (req.body.pass !== '') {
                     bcrypt_1.default.hash(req.body.pass, saltRounds).then((hash) => {
@@ -171,6 +172,22 @@ class UsuarioController {
                     res.json({ message: 'Usuario Modificado' });
                 }
             }
+        });
+    }
+    // Mostrar Todo
+    todosAmigos(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield database_1.default.query('SELECT u.nickname, u.urlimagen FROM usuario u');
+            res.json(result);
+        });
+    }
+
+    myData(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const usuario = yield database_1.default.query('SELECT * FROM usuario WHERE id_usuario = ?', id);               
+                    delete usuario[0].pass;
+                    return res.json(usuario[0]); 
         });
     }
 }

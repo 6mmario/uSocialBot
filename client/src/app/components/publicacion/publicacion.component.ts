@@ -16,21 +16,26 @@ export class PublicacionComponent implements OnInit {
   publicacion: Publicacion = {
     texto: '',
     urlimagen: '',
-    USUARIO_id_usuario: 'mmario_93@hotmail.es',
+    USUARIO_id_usuario: '',
     base64: '',
     extension: '',
     imagen: 0,
   }
 
   publicaciones: any = [];
-
+  amigos: any = [];
+  us:string="";
   constructor(private publicacionServices: PublicacionService, private router: Router) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("id_usuario") === null) { this.router.navigate(['login']); }
+    this.us=localStorage.getItem("nickname");
     this.obtenerTodas();
+    this.listaAmigos();
   }
 
   obtenerTodas(){
+    this.publicacion.USUARIO_id_usuario=localStorage.getItem("id_usuario");
     this.publicacionServices.getAll().subscribe(
       res => {
         this.publicaciones = res;
@@ -114,6 +119,16 @@ export class PublicacionComponent implements OnInit {
     this.publicacion.extension = '';
     this.publicacion.imagen = 0;
     this.suImagen = 0;
+  }
+
+  listaAmigos(){
+    this.publicacionServices.getAmigos().subscribe(
+      res => {
+        this.amigos = res;
+
+      },
+      err => console.log(err)
+    );
   }
 
 
