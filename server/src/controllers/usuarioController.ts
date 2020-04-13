@@ -156,6 +156,7 @@ class UsuarioController {
             delete req.body.base64;
             delete req.body.extension;
             delete req.body.foto;
+            delete req.body.urlimagen;
 
             // pass cambiado
             if (req.body.pass !== '') {
@@ -171,6 +172,12 @@ class UsuarioController {
             }
         }
     }
+
+        // Mostrar Todo
+        public async todosAmigos(req: Request, res: Response): Promise<void> {
+            const result  = await pool.query('SELECT u.nickname, u.urlimagen FROM usuario u');
+            res.json(result);
+        }
 }
 
 const usuarioController = new UsuarioController;

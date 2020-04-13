@@ -18,4 +18,8 @@ export class PublicacionService {
   getAll (){
     return this.http.get(`${this.API_URI}publicacion`);
   }
+
+  getAmigos(){
+    return this.http.get(`${this.API_URI}usuario`);
+  }
 }

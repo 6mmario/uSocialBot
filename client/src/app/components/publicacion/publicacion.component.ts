@@ -27,7 +27,9 @@ export class PublicacionComponent implements OnInit {
   constructor(private publicacionServices: PublicacionService, private router: Router) { }
 
   ngOnInit(): void {
+    if (localStorage.getItem("id_usuario") === null) { this.router.navigate(['login']); }
     this.obtenerTodas();
+    this.listaAmigos();
   }
 
   obtenerTodas(){
@@ -114,6 +116,16 @@ export class PublicacionComponent implements OnInit {
     this.publicacion.extension = '';
     this.publicacion.imagen = 0;
     this.suImagen = 0;
+  }
+
+  listaAmigos(){
+    this.publicacionServices.getAmigos().subscribe(
+      res => {
+        console.log(res);
+        
+      },
+      err => console.log(err)
+    );
   }
 
 
