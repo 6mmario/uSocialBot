@@ -10,13 +10,16 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
+import { PublicacionComponent } from './components/publicacion/publicacion.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     UsuarioComponent,
     NavbarComponent,
-    ProfileComponent
+    ProfileComponent,
+    PublicacionComponent
   ],
   imports: [
     BrowserModule,
