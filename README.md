@@ -6,6 +6,8 @@
 - Mario Obed Morales Guitz 201213283
 - Sandy Fabiola Merida Hernandez 201020126
 
+# Arquitectura
+
 # APP Angular
 Color 1: #feeb97
 <span style="color: #feeb97 ">some **1** text</span>
@@ -39,10 +41,46 @@ https://getbootstrap.com/docs/4.4/getting-started/introduction/
 | POST   | http://ip:3000/publicacion             | Creacion de una nueva publicacion                                         |
 | GET    | http://ip:3000/publicacion             | Obtiene todo el listado de las publicaciones                              |
 | GET    | http://ip:3000/usuario                 | Obtiene todo el listado de los amigos                                     |
-| GET    | http://ip:3000/usuario/:id                 | Obtiene los datos del usuario                                     |
+| GET    | http://ip:3000/usuario/:id             | Obtiene los datos del usuario                                     |
 
 
-# Rutas del serverless
+# Grupos, usuarios, permisos/roles y tokens
+## Grupos
+|Group    |Policies                           | Permissions / Roles                                                      |
+|---------|-----------------------------------|--------------------------------------------------------------------------|
+|Architect|AmazonEC2FullAccess                | Accesos completo (creación, modificación y eliminacion) de instancias EC2|
+|         |AmazonVPCFullAccess                | Accesos completo (creación, modificación y eliminacion) de instancias VPC|
+|Backend  |AmazonS3FullAccess                 | Accesos completo (creación, modificación y eliminacion) de buckets S3    |
+|         |AmazonEC2ContainerServiceFullAccess| Ve las EC2 creadas, ingreso con ssh , no puede iniciar o parar una EC2   |
+|Frontend |AmazonS3FullAccess                 | Accesos completo (creación, modificación y eliminacion) de buckets S3    |
+|         |AmazonEC2ContainerServiceFullAccess| Ve las EC2 creadas, ingreso con ssh , no puede iniciar o parar una EC2   |
 
-| Metodo | Ruta                                   | Descripcion                                                               |
-|--------|----------------------------------------|---------------------------------------------------------------------------|
+## Users
+|User       | Group                   | Token generated      |
+|-----------|-------------------------|----------------------|
+|g26_arqui  | Architect               |                      |
+|g26_mario  | Backend                 | S3_KEYC,S3_SECRETKEY |
+|g26_sandy  | Frontend                |                      |
+
+# VPC
+|VPC name| VPC-G26    |
+|Red     | 10.0.0.0/16|
+
+## Subnets
+Todas pertenecen a la VPC-G26
+|Name                 |IP´s range   |
+|---------------------|-------------|
+|WebSite-public-subnet|10.0.1.0/24  |
+|Server-private-subnet|10.0.2.0/24  |
+|DB-private-subnet    |10.0.3.0/24  |
+
+## Route table
+
+|Name                   | Routes                       | Subnets associations |   
+|-----------------------|------------------------------|----------------------|
+|internet-rtable        | - 10.0.0.0/16  - 0.0.0.0/0  - ::/0 | WebSite-public-subnet|
+| default-private-rtable|
+
+
+
+
