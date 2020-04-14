@@ -78,7 +78,7 @@ Todas pertenecen a la VPC-G26
 
 |Name                   | Routes                       | Subnets associations |   
 |-----------------------|------------------------------|----------------------|
-|internet-rtable        | - 10.0.0.0/16  - 0.0.0.0/0  - ::/0 | WebSite-public-subnet|
+|internet-rtable        |  10.0.0.0/16 | 0.0.0.0/0  | ::/0 | WebSite-public-subnet|
 | default-private-rtable|
 
 
