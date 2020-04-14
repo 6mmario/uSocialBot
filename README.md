@@ -74,6 +74,7 @@ Todas pertenecen a la VPC-G26
 |WebSite-public-subnet|10.0.1.0/24  |
 |Server-private-subnet|10.0.2.0/24  |
 |DB-private-subnet    |10.0.3.0/24  |
+|---------------------|-------------|
 Las IPs asignadas a cada EC2 que se asocia a una subnet es generada en el rango que la tabla describe.
 
 ## Route table
@@ -82,6 +83,7 @@ Las IPs asignadas a cada EC2 que se asocia a una subnet es generada en el rango 
 |-----------------------|-------|-------------------------------|-----------------------------------------|
 |internet-rtable        |VPC-G26|  10.0.0.0/16 , 0.0.0.0/0::/0  | WebSite-public-subnet                   |
 | default-private-rtable|VPC-G26|  10.0.0.0/16                  |Server-private-subnet , DB-private-subnet|
+|-----------------------|-------|-------------------------------|-----------------------------------------|
 **internet-rtable:** Las subnets asociadas a esta tabla, tienen comunicación con el internet y la red interna de la VPC-G26
 **default-private-rtable:** Las subnets asociadas a esta tabla no tienen acceso a internet, pero las que estan asociadas se monunican entre si, en este caso con la red VPC-G26
 
