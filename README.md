@@ -7,11 +7,11 @@
 - Sandy Fabiola Merida Hernandez 201020126
 
 # Arquitectura
-[Diseño de la arquitectura](https://practica2-26.s3.us-east-2.amazonaws.com/Arquitectura.PNG)
-App web alojada y deployada en servicos AWS.
+>[Diseño de la arquitectura](https://practica2-26.s3.us-east-2.amazonaws.com/Arquitectura.PNG)
+> App web alojada y deployada en servicos AWS.
 ## Backend
-**Servidor:** NodeJs. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
-**Base de datos SQL:** MySQL. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
+>**Servidor:** NodeJs. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
+>**Base de datos SQL:** MySQL. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
 ## Frontend/Sitio Web
 **Desarrollo:** Angular. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
 **Deploy:** Nginx
