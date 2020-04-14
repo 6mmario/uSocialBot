@@ -7,18 +7,28 @@
 - Sandy Fabiola Merida Hernandez 201020126
 
 # Arquitectura
-<dd>[Diseño de la arquitectura](https://practica2-26.s3.us-east-2.amazonaws.com/Arquitectura.PNG)</dd>
-<dd>App web alojada y deployada en servicos AWS.</dd>
+[Diseño de la arquitectura](https://practica2-26.s3.us-east-2.amazonaws.com/Arquitectura.PNG).
+
+App web alojada y deployada en servicos AWS.
+
 ## Backend
->**Servidor:** NodeJs. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
->**Base de datos SQL:** MySQL. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
+
+**Servidor:** NodeJs. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
+
+**Base de datos SQL:** MySQL. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
+
 ## Frontend/Sitio Web
+
 **Desarrollo:** Angular. Alojado en una intancia de EC2 con Ubuntu 18.04 LTS.
-**Deploy:** Nginx
+
+**Deploy:** Nginx.
+
 ## Storage
+
 Bucket de S3
 
 Como muestra la imagen del Diseño de la arquitectura, se genera una Virtual Public Cloud para poder comunicar cada uno de los servidores, que en total son 3.
+
 - La Base de datos contiene unicamente las tablas con la información de los usuarios y la información de las publicaciones que realizan. Este no tiene comunicación a internet, pero si se comunica por la red privada con el servidor por medio del puerto 3306 para datos y el 22(ssh)
 - El Servidor contiene provee servicios para ser consumidos, para ello utiliza el puerto 3000 y el 22(ssh). No tiene acceso a internet pero si se conecta con el sitio web y tiene acceso a un bucket de S3 para almacenar objetos, para este caso las imagenes.
 - El Sitio Web es el front-end de la app, es con lo que el usuario tiene contacto. Tiene acceso a internet por medio del puerto 80 y el per puerto 22(ssh).
@@ -81,13 +91,17 @@ https://getbootstrap.com/docs/4.4/getting-started/introduction/
 
 # VPC
 Las subnet asociadas tendran una IP privada en el rango de la red de la VPC asociada.
+
 **VPC name:** VPC-G26    
+
 **Red:**      10.0.0.0/16
 
 
 ## Subnets
 Todas pertenecen a la VPC-G26.
+
 Las IPs asignadas a cada EC2 que se asocia a una subnet es generada en el rango que la tabla describe.
+
 |Name                 |IP´s range   |
 |---------------------|-------------|
 |WebSite-public-subnet|10.0.1.0/24  |
@@ -96,8 +110,10 @@ Las IPs asignadas a cada EC2 que se asocia a una subnet es generada en el rango 
 
 
 ## Route table
-**internet-rtable:** Las subnets asociadas a esta tabla, tienen comunicación con el internet y la red interna de la VPC-G26
-**default-private-rtable:** Las subnets asociadas a esta tabla no tienen acceso a internet, pero las que estan asociadas se monunican entre si, en este caso con la red VPC-G26
+**internet-rtable:** Las subnets asociadas a esta tabla, tienen comunicación con el internet y la red interna de la VPC-G26.
+
+**default-private-rtable:** Las subnets asociadas a esta tabla no tienen acceso a internet, pero las que estan asociadas se monunican entre si, en este caso con la red VPC-G26.
+
 
 |Name                   | VPC   |Routes                        | Subnets associations                    |   
 |-----------------------|-------|-------------------------------|-----------------------------------------|
