@@ -1,1 +1,1 @@
-export const ipApp = 'http://3.132.192.128:3000';
+export const ipApp = 'http://3.22.68.238:3000';

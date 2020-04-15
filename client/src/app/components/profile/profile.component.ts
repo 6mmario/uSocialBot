@@ -34,9 +34,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem("id_usuario") === null) { this.router.navigate(['login']); }
-    this.obtenerDatos();
     this.usuario.id_usuario=localStorage.getItem("id_usuario");
-    
+    this.obtenerDatos();
   }
 
   update() {
@@ -53,7 +52,6 @@ export class ProfileComponent implements OnInit {
       this.actualizado = true;
 
       var id = localStorage.getItem("id_usuario");
-      console.log(this.usuario);
       this.loginServices.updateUser(id, this.usuario)
         .subscribe(
           (res:any) => {
@@ -66,7 +64,6 @@ export class ProfileComponent implements OnInit {
             localStorage.setItem("nombre", res.nombre);
             localStorage.setItem("nickname", res.nickname);
             localStorage.setItem("urlimagen", res.urlimagen);
-            this.obtenerDatos();
             window.location.reload();
           },
           err => {
@@ -78,7 +75,7 @@ export class ProfileComponent implements OnInit {
       this.datosObligarios = false;
       this.actualizado = false;
     }
-   /// window.location.reload();
+   window.location.reload();
   }
 
   cargandoImagen(fileInput: any) {
@@ -133,11 +130,9 @@ export class ProfileComponent implements OnInit {
   }
 
   obtenerDatos(){
-    console.log('no actualiza en tiempo real');
     this.loginServices.getDatos(localStorage.getItem("id_usuario"))
         .subscribe(
           (res:any)=>{
-            
             this.usuario.nombre=res.nombre;
             this.usuario.nickname=res.nickname;
             this.usuario.urlimagen=res.urlimagen;
