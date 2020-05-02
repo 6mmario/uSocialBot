@@ -14,6 +14,7 @@
     </div>
 </div>
 
+
 <div class="col">
     <div class="card">
         <div *ngIf ="datosObligarios == false " class="alert alert-danger" role="alert">
@@ -24,7 +25,16 @@
             <div class="p-3 mb-2 text-dark" style="text-align: center;" >
                 <h2>Bienvenido {{usuario.id_usuario}}</h2> 
             </div>
-            <form class="was-validated">
+                            
+
+            <form id="formulario1" class="was-validated">
+                                <!-- Switch -->                
+                                <div class="custom-control custom-switch" style="text-align: center;"><h5>
+                                    <input *ngIf="isChatBot=='1'" type="checkbox" class="custom-control-input" id="customSwitch1"  (click)="chatBot()" checked >
+                                    <input *ngIf="isChatBot=='0'" type="checkbox" class="custom-control-input" id="customSwitch1" (click)="chatBot()"  >
+                                    <label class="custom-control-label" for="customSwitch1">COVID Bot</label>
+                                </h5></div>
+
 
                 <!-- Nombre Completo -->
                 <div class="form-group">
@@ -89,7 +99,8 @@
                 <button type="button"  class="btn btn-success btn-block" (click)="update()" href="profile"  data-toggle="modal" data-target=".bd-example-modal-sm">
                     Update
                 </button>
-
+                <br>
+                
                 <!-- Modal -->
                 <div *ngIf="actualizado==true" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"  aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">

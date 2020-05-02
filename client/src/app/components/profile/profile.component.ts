@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
+  isChatBot:string;
 
   usuario: UsuarioUpdate = {
     id_usuario: '', // agregado
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit {
     if (localStorage.getItem("id_usuario") === null) { this.router.navigate(['login']); }
     this.obtenerDatos();
     this.usuario.id_usuario=localStorage.getItem("id_usuario");
-    
+    this.isChatBot=localStorage.getItem("bot");
   }
 
   update() {
@@ -78,7 +79,6 @@ export class ProfileComponent implements OnInit {
       this.datosObligarios = false;
       this.actualizado = false;
     }
-   /// window.location.reload();
   }
 
   cargandoImagen(fileInput: any) {
@@ -151,6 +151,20 @@ export class ProfileComponent implements OnInit {
         );
         
   }
+
+ chatBot() {
+   console.log(localStorage.getItem("bot"));
+   if(this.isChatBot=='0'){
+      console.log(false);
+      this.isChatBot='1';
+      localStorage.setItem("bot", '1');
+   }else{
+    console.log(true);
+    this.isChatBot='0';
+    localStorage.setItem("bot", '0');
+   }
+
+}
 
 
 

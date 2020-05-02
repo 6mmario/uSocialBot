@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
               localStorage.setItem("nombre", res.nombre);
               localStorage.setItem("nickname", res.nickname);
               localStorage.setItem("urlimagen",res.urlimagen);
+              localStorage.setItem("bot",'0');
               window.location.reload();
             }
           },

@@ -26,7 +26,8 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem("id_usuario");
     localStorage.removeItem("nombre");
     localStorage.removeItem("nickname");
-    localStorage.removeItem("urlimagen")
+    localStorage.removeItem("urlimagen");
+    localStorage.removeItem("bot")
     this.isLogged=false;
     this.router.navigate(['login']);
 
