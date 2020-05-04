@@ -13,6 +13,9 @@
           <a *ngIf="isLogged" class="nav-link" routerLink="/publicacion">Publicaciones<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
+          <a *ngIf="isLogged" class="nav-link" routerLink="/amigos">Amigos<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
           <a *ngIf="isLogged" class="nav-link" (click)="salir()"  routerLink="/login" >Logout<span class="sr-only">(current)</span></a>
         </li>
       </ul>

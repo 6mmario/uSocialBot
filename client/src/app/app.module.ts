@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PublicacionComponent } from './components/publicacion/publicacion.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { FriendsComponent } from './components/friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     NavbarComponent,
     ProfileComponent,
     PublicacionComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
