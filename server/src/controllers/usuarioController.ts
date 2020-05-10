@@ -173,20 +173,36 @@ class UsuarioController {
         }
     }
 
-        // Mostrar Todo
-        public async todosAmigos(req: Request, res: Response): Promise<void> {
-            const result  = await pool.query('SELECT u.nickname, u.urlimagen FROM usuario u');
-            res.json(result);
-        }
+    // Mostrar Todo
+    public async todosAmigos(req: Request, res: Response): Promise<void> {
+        const result = await pool.query('SELECT u.nickname, u.urlimagen FROM usuario u');
+        res.json(result);
+    }
 
-        // DATA
-        public async myData(req: Request, res: Response): Promise<any> {
-                const  { id }  = req.params;
-                const usuario = await pool.query('SELECT * FROM usuario WHERE id_usuario = ?', id);               
-                        delete usuario[0].pass;
-                        return res.json(usuario[0]); 
-            }
-        
+    // Mostar Mis Amigos
+    public async misAmigos(req: Request, res: Response): Promise<void> {
+        const id = req.params.id;
+        console.log(id);
+        const result = await pool.query(`SELECT a.usuario_id_usuario1 AS Amigo, u.nombre AS Nombre, u.nickname AS Nickname, u.urlimagen AS URL FROM amistad a 
+        INNER JOIN usuario u ON a.usuario_id_usuario1 = u.id_usuario
+        WHERE a.usuario_id_usuario = '${id}';`);
+        res.json(result)
+    }
+
+    // agregar amistad
+    public async amistad(req: Request, res: Response): Promise<void> {
+        const result = pool.query('INSERT INTO amistad set ?', [req.body]);
+        res.json({ message: 'amistad agregada' });
+    }
+
+    // DATA
+    public async myData(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+        const usuario = await pool.query('SELECT * FROM usuario WHERE id_usuario = ?', id);
+        delete usuario[0].pass;
+        return res.json(usuario[0]);
+    }
+
 }
 
 const usuarioController = new UsuarioController;

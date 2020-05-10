@@ -5,6 +5,7 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PublicacionComponent } from './components/publicacion/publicacion.component';
+import { FriendsComponent } from './components/friends/friends.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'publicacion',
     component: PublicacionComponent
+  },
+  {
+    path: 'amigos',
+    component: FriendsComponent
   },
   {
     path: '**',
