@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-    <img src="/assets/logoUlogin.jpeg" >
+    <img src="/assets/logoUlogin.jpeg">
     <h2>@{{us}}</h2>
 </div>
 <div class="container-fluid">
@@ -8,25 +8,32 @@
         <div class="col-md-4 col-xl-3 bd-sidebar">
             <p class="h2">Mis Amigos</p>
             <div class="accordion" id="accordionExample">
-                <div *ngFor = "let amigo of amigos; index as i;" class="card">
+                <div *ngFor="let amigo of amigos; index as i;" class="card">
                     <div class="card-header" id="heading{{i}}">
                         <h2 class="mb-0">
-                            <button class="btn btn-link"  type="button" data-toggle="collapse" attr.data-target="#collapse{{i}}"
-                                aria-expanded="true"  attr.aria-controls="collapse{{i}}" >
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                attr.data-target="#collapse{{i}}" aria-expanded="true"
+                                attr.aria-controls="collapse{{i}}">
                                 @{{amigo.nickname}}
                             </button>
                         </h2>
                     </div>
 
-                    <div id="collapse{{i}}" class="collapse" attr.aria-labelledby="heading{{i}}" 
+                    <div id="collapse{{i}}" class="collapse" attr.aria-labelledby="heading{{i}}"
                         data-parent="#accordionExample">
                         <div class="card-body">
-                            <img *ngIf="amigo.urlimagen != ''" [src]="amigo.urlimagen" alt="{{amigo.nickname}}" class="img-thumbnail">
+                            <img *ngIf="amigo.urlimagen != ''" [src]="amigo.urlimagen" alt="{{amigo.nickname}}"
+                                class="img-thumbnail">
                             <span *ngIf="amigo.urlimagen == ''">sin foto</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+               Covid-19
+            </button>
+
         </div>
 
         <!--Parte de Publicaciones-->
@@ -34,7 +41,9 @@
             <div class="card col-md-8" style="width: 36rem;">
                 <img *ngIf="this.suImagen == 1" [src]="cardImageBase64" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <label for="validationTextarea"><h2>Crear Publicacion</h2></label>
+                    <label for="validationTextarea">
+                        <h2>Crear Publicacion</h2>
+                    </label>
                     <textarea class="form-control" id="validationTextarea" placeholder="@{{us}} Qué estás pensando?"
                         [(ngModel)]="publicacion.texto" required></textarea>
                     <hr>
@@ -57,7 +66,9 @@
     </div>
 </div>
 
-<label for="validationTextarea"><h2>Timeline</h2></label>
+<label for="validationTextarea">
+    <h2>Timeline</h2>
+</label>
 <div class="card mb-3" *ngFor="let publicacion of publicaciones">
     <div class="card-header">
         <div class="row justify-content-between">
@@ -75,5 +86,160 @@
         </p>
         <img style="width: 55%; height: 55%;" *ngIf="publicacion.urlimagen != ''" center [src]="publicacion.urlimagen"
             class="card-img-top">
+    </div>
+</div>
+
+<!-- Instruccion -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Covid-19 Bot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-lg">Instruccion</span>
+                    </div>
+                    <input type="text" class="form-control" #instruccion aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-lg" (change)="validar(instruccion)">
+                </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paisModal">
+                    Next
+                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pais -->
+<div class="modal fade" id="paisModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Covid-19 Bot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Pais</span>
+                    </div>
+                    <input type="text" class="form-control" #nombrePais (change)="pais(nombrePais)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                  </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#rangoFecha">
+                    Next
+                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Fecha -->
+<div class="modal fade" id="rangoFecha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Covid-19 Bot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Rango de Fechas </span>
+                    </div>
+                    <input type="date" class="form-control" #rango1 (change)="rangoFecha1(rango1)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <!-- <input type="date" class="form-control" #rango2 (change)="rangoFecha2(rango2)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
+                  </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#tipoCasos">
+                    Next
+                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Tipo de Casos -->
+<div class="modal fade" id="tipoCasos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Covid-19 Bot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Tipo de Casos </span>
+                    </div>
+                    <input type="text" placeholder="confirmados, recuperados, muertes o todos?" class="form-control" #tCaso (change)="tipoCaso(tCaso)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <!-- <input type="date" class="form-control" #rango2 (change)="rangoFecha2(rango2)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
+                  </div>
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mostrarInfo">
+                    Next
+                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mostrar Info -->
+<div class="modal fade" id="mostrarInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Covid-19 Bot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4>Datos sobre Covid en {{nombrePais.value}}</h4>
+                <p>Fecha: {{fecha1}}</p>
+                <p>
+                    Confirmados: {{this.confirmados}}
+                </p>
+                <p>
+                    Recuperados: {{this.recuperados}}
+                </p>
+                <p>
+                    Muertes: {{this.muertes}}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Salir</button>
+            </div>
+        </div>
     </div>
 </div>
