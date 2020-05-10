@@ -13,8 +13,10 @@ class UsuarioRoutes {
     config() {
         this.router.post('/', usuarioController_1.default.create);
         this.router.post('/OAuth', usuarioController_1.default.OAuth);
+        this.router.post('/amistad', usuarioController_1.default.amistad);
         this.router.put('/:id', usuarioController_1.default.update);
         this.router.get('/', usuarioController_1.default.todosAmigos);
+        this.router.get('/misAmigos/:id', usuarioController_1.default.misAmigos);
         this.router.get('/:id', usuarioController_1.default.myData);
     }
 }
