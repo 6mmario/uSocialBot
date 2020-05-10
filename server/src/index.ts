@@ -17,6 +17,7 @@ class Server {
 
     config(): void {
         this.app.set('port', process.env.PORT || 3000);
+        this.app.set('host', process.env.HOSTS || 'localhost');
         this.app.use(morgan('dev'));
         this.app.use(cors());
        // this.app.use(express.json());
@@ -33,7 +34,7 @@ class Server {
 
     start() {
         this.app.listen(this.app.get('port'), () => {
-            console.log('Server on port', this.app.get('port'));
+            console.log('Server on ip: ', this.app.get('host'),'on  port', this.app.get('port'));
             console.log(process.env.HOST);
             console.log(process.env.UDATABASE);
             console.log(process.env.PASSWORD);

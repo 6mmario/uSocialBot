@@ -181,6 +181,24 @@ class UsuarioController {
             res.json(result);
         });
     }
+    // Mostar Mis Amigos
+    misAmigos(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            console.log(id);
+            const result = yield database_1.default.query(`SELECT a.usuario_id_usuario1 AS Amigo, u.nombre AS Nombre, u.nickname AS Nickname, u.urlimagen AS URL FROM amistad a 
+        INNER JOIN usuario u ON a.usuario_id_usuario1 = u.id_usuario
+        WHERE a.usuario_id_usuario = '${id}';`);
+            res.json(result);
+        });
+    }
+    // agregar amistad
+    amistad(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = database_1.default.query('INSERT INTO amistad set ?', [req.body]);
+            res.json({ message: 'amistad agregada' });
+        });
+    }
     // DATA
     myData(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
