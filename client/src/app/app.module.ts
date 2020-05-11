@@ -12,6 +12,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PublicacionComponent } from './components/publicacion/publicacion.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { FriendsComponent } from './components/friends/friends.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FriendsComponent } from './components/friends/friends.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

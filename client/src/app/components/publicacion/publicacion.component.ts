@@ -1,16 +1,95 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import { Router } from '@angular/router';
 import { Publicacion } from '../../models/publicacion';
 import { PublicacionService } from '../../services/publicacion.service'
 import { CovidService } from '../../services/covid.service';
 import * as _ from 'lodash';
-import { BrowserStack } from 'protractor/built/driverProviders';
 @Component({
   selector: 'app-publicacion',
   templateUrl: './publicacion.component.html',
   styleUrls: ['./publicacion.component.css']
 })
 export class PublicacionComponent implements OnInit {
+  //-------------------------------------
+  public lineChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Positivos' },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Recuperados' },
+    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Muertes', yAxisID: 'y-axis-1' }
+  ];
+  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      xAxes: [{}],
+      yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+        },
+        {
+          id: 'y-axis-1',
+          position: 'right',
+          gridLines: {
+            color: 'rgba(255,0,0,0.3)',
+          },
+          ticks: {
+            fontColor: 'red',
+          }
+        }
+      ]
+    },
+    annotation: {
+      annotations: [
+        {
+          type: 'line',
+          mode: 'vertical',
+          scaleID: 'x-axis-0',
+          value: 'March',
+          borderColor: 'orange',
+          borderWidth: 2,
+          label: {
+            enabled: true,
+            fontColor: 'orange',
+            content: 'LineAnno'
+          }
+        },
+      ],
+    },
+  };
+  public lineChartColors: Color[] = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    },
+    { // dark grey
+      backgroundColor: 'rgba(77,83,96,0.2)',
+      borderColor: 'rgba(77,83,96,1)',
+      pointBackgroundColor: 'rgba(77,83,96,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(77,83,96,1)'
+    },
+    { // red
+      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: 'red',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+  // public lineChartPlugins = [pluginAnnotations];
+  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+  //------------------------------------
   imageError: string;
   isImageSaved: boolean;
   cardImageBase64: string;
@@ -21,6 +100,7 @@ export class PublicacionComponent implements OnInit {
   fecha2: string = '';
   data: any = [];
   tipoCasos: string = '';
+  casos: number = 0;
 
   recuperados: number = 0;
   confirmados: number = 0;
@@ -39,6 +119,8 @@ export class PublicacionComponent implements OnInit {
   publicaciones: any = [];
   amigos: any = [];
   us: string = "";
+
+
   constructor(private publicacionServices: PublicacionService,
     private covidServices: CovidService,
     private router: Router) { }
@@ -48,7 +130,37 @@ export class PublicacionComponent implements OnInit {
     this.us = localStorage.getItem("nickname");
     this.obtenerTodas();
     this.listaAmigos();
+    this.obtenerTodo();
   }
+
+  //--------------------
+
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+    console.log('sirve o no sirve')
+  }
+
+  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+    console.log(event, active);
+    console.log('sirve o no sirve v')
+  }
+
+  public hideOne() {
+    const isHidden = this.chart.isDatasetHidden(1);
+    this.chart.hideDataset(1, !isHidden);
+  }
+
+  public changeColor() {
+    this.lineChartColors[2].borderColor = 'green';
+    this.lineChartColors[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
+  }
+
+  public changeLabel() {
+    this.lineChartLabels[2] = ['1st Line', '2nd Line'];
+    // this.chart.update();
+  }
+  //---------------------------------
 
   obtenerTodas() {
     this.publicacion.USUARIO_id_usuario = localStorage.getItem("id_usuario");
@@ -141,21 +253,21 @@ export class PublicacionComponent implements OnInit {
     this.publicacionServices.getAmigos().subscribe(
       res => {
         this.amigos = res;
-
       },
       err => console.log(err)
     );
   }
 
-
   validar(tag) {
     switch (tag.value) {
       case 'casos':
         this.instruccion = true;
+        this.casos = 1;
         break;
 
       case 'grafica':
         this.instruccion = false;
+        this.casos = 0;
         break;
     }
   }
@@ -170,11 +282,59 @@ export class PublicacionComponent implements OnInit {
 
   rangoFecha2(tag) {
     this.fecha2 = tag.value;
+    console.log({ pais: this.nombrePais, rangoFecha: this.fecha1 + ' - ' + this.fecha2 });
+    this.nombrePais = this.nombrePais.replace(/\b\w/g, l => l.toUpperCase());
+    console.log({ NombrePais: this.nombrePais });
+    const temp = this.nombrePais;
+    let aux: any = [];
+    aux = this.data[temp];
+    console.log(aux);
+    this.lineChartLabels = [];
+    this.lineChartData = [];
+    let f1 = 0;
+    let f2 = 0;
+    let positivos: any = [];
+    let recuperados: any = [];
+    let muertes: any = [];
+    aux.forEach(element => {
+
+      if (element.date === this.fecha1) {
+        f1 = 1;
+      }
+
+      if (element.date === this.fecha2) {
+        f2 = 1;
+        this.lineChartLabels.push(element.date);
+        positivos.push(element.confirmed)
+        recuperados.push(element.recovered)
+        muertes.push(element.deaths)
+      }
+
+      if (f1 === 1 && f2 === 0) {
+        this.lineChartLabels.push(element.date);
+        positivos.push(element.confirmed)
+        recuperados.push(element.recovered)
+        muertes.push(element.deaths)
+      }
+    });
+    this.lineChartData.push({ data: positivos, label: 'Positivos' },
+      { data: recuperados, label: 'Recuperados' },
+      { data: muertes, label: 'Muertes', yAxisID: 'y-axis-1' });
+
   }
 
   tipoCaso(tag) {
     this.tipoCasos = tag.value;
     this.obtenerData();
+  }
+
+  obtenerTodo() {
+    this.covidServices.obtenerInfo().subscribe(
+      res => {
+        this.data = res;
+      },
+      err => console.log(err)
+    );
   }
 
   obtenerData() {
@@ -222,10 +382,6 @@ export class PublicacionComponent implements OnInit {
             break;
         }
       }
-
     });
-
   }
-
-
 }

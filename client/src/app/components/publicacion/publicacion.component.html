@@ -31,7 +31,7 @@
             </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-               Covid-19
+                Covid-19
             </button>
 
         </div>
@@ -112,9 +112,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#paisModal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
+                    data-target="#paisModal">
                     Next
-                 </button>
+                </button>
             </div>
         </div>
     </div>
@@ -134,17 +135,19 @@
             <div class="modal-body">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Pais</span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Pais</span>
                     </div>
-                    <input type="text" class="form-control" #nombrePais (change)="pais(nombrePais)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                  </div>
+                    <input type="text" class="form-control" #nombrePais (change)="pais(nombrePais)"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
                 <br>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#rangoFecha">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
+                    data-target="#rangoFecha">
                     Next
-                 </button>
+                </button>
             </div>
         </div>
     </div>
@@ -164,23 +167,29 @@
             <div class="modal-body">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Rango de Fechas </span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Rango de Fechas </span>
                     </div>
-                    <input type="date" class="form-control" #rango1 (change)="rangoFecha1(rango1)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <!-- <input type="date" class="form-control" #rango2 (change)="rangoFecha2(rango2)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
-                  </div>
+                    <input type="date" class="form-control" #rango1 (change)="rangoFecha1(rango1)"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input *ngIf="casos == 0" type="date" class="form-control" #rango2 (change)="rangoFecha2(rango2)"
+                        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
                 <br>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#tipoCasos">
+                <button *ngIf="casos == 1" type="button" class="btn btn-primary" data-dismiss="modal"
+                    data-toggle="modal" data-target="#tipoCasos">
                     Next
-                 </button>
+                </button>
+                <button *ngIf="casos == 0" type="button" class="btn btn-primary" data-dismiss="modal"
+                    data-toggle="modal" data-target="#mostrarInfo">
+                    Next
+                </button>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Tipo de Casos -->
 <div class="modal fade" id="tipoCasos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -196,25 +205,29 @@
             <div class="modal-body">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="inputGroup-sizing-default">Tipo de Casos </span>
+                        <span class="input-group-text" id="inputGroup-sizing-default">Tipo de Casos </span>
                     </div>
-                    <input type="text" placeholder="confirmados, recuperados, muertes o todos?" class="form-control" #tCaso (change)="tipoCaso(tCaso)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    <!-- <input type="date" class="form-control" #rango2 (change)="rangoFecha2(rango2)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
-                  </div>
+                    <input type="text" placeholder="confirmados, recuperados, muertes o todos?" class="form-control"
+                        #tCaso (change)="tipoCaso(tCaso)" aria-label="Sizing example input"
+                        aria-describedby="inputGroup-sizing-default">
+
+                </div>
                 <br>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#mostrarInfo">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal"
+                    data-target="#mostrarInfo">
                     Next
-                 </button>
+                </button>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Mostrar Info -->
-<div class="modal fade" id="mostrarInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div *ngIf="casos == 1" class="modal fade" id="mostrarInfo" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -237,9 +250,39 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Salir</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Mostrar Grafica -->
+<div *ngIf="casos == 0" class="modal fade" id="mostrarInfo" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Covid-19 Bot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="flex">
+                    <div class="flex-item">
+                        <div style="display: block;">
+                            <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+                                [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                                [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
