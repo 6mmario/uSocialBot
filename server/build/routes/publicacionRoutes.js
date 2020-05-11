@@ -13,6 +13,7 @@ class UsuarioRoutes {
     config() {
         this.router.post('/', publicacionController_1.default.create);
         this.router.get('/', publicacionController_1.default.todasPublicaciones);
+        this.router.get('/:id', publicacionController_1.default.traducirPublicacion);
     }
 }
 exports.default = new UsuarioRoutes().router;

@@ -13,6 +13,7 @@ class UsuarioRoutes {
     config() {
         this.router.post('/', publicacionController.create);
         this.router.get('/', publicacionController.todasPublicaciones);
+        this.router.get('/:id', publicacionController.traducirPublicacion);
     }
 
 }

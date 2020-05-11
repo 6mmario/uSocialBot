@@ -69,6 +69,8 @@
 <label for="validationTextarea">
     <h2>Timeline</h2>
 </label>
+
+<!-- Publicacion -->
 <div class="card mb-3" *ngFor="let publicacion of publicaciones">
     <div class="card-header">
         <div class="row justify-content-between">
@@ -81,9 +83,16 @@
         </div>
     </div>
     <div class="card-body">
-        <p class="card-text">
-            {{publicacion.texto}}
-        </p>
+        <div>
+            <p class="card-text">
+                {{publicacion.texto}}
+            </p>
+            <p *ngIf="idTraducido == publicacion.id_publicacion">----------------------</p>
+            <p style="font-size:100%; color: blue" *ngIf="idTraducido == publicacion.id_publicacion">{{textoTraducido}}
+            </p>
+            <span style="font-size:90%; color: blue" *ngIf="publicacion.texto" (click)="traducir(publicacion.id_publicacion)">Traducir</span>  
+        </div>
+
         <img style="width: 55%; height: 55%;" *ngIf="publicacion.urlimagen != ''" center [src]="publicacion.urlimagen"
             class="card-img-top">
     </div>
@@ -271,10 +280,10 @@
                 <div class="flex">
                     <div class="flex-item">
                         <div style="display: block;">
-                            <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
-                                [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
-                                [chartType]="lineChartType" (chartHover)="chartHovered($event)"
-                                (chartClick)="chartClicked($event)"></canvas>
+                            <canvas baseChart width="400" height="400" [datasets]="lineChartData"
+                                [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
+                                [legend]="lineChartLegend" [chartType]="lineChartType"
+                                (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
                         </div>
                     </div>
                 </div>
@@ -285,4 +294,3 @@
         </div>
     </div>
 </div>
-

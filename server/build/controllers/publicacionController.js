@@ -24,6 +24,11 @@ const s3 = new aws_sdk_1.default.S3({
     secretAccessKey: process.env.S3_SECRETKEY,
     apiVersion: process.env.API_VERSION
 });
+const translate = new aws_sdk_1.default.Translate({
+    accessKeyId: process.env.Translate_KEYC,
+    secretAccessKey: process.env.Translate_SECRETKEY,
+    region: 'us-east-2'
+});
 class PublicacionController {
     // Crear 0-Sin Fotografia, 1-Con Fotografia
     create(req, res) {
@@ -79,6 +84,29 @@ class PublicacionController {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield database_1.default.query('SELECT p.id_publicacion, u.nickname, p.texto, p.fecha, p.urlimagen FROM publicacion p INNER JOIN usuario u ON u.id_usuario = p.USUARIO_id_usuario ORDER BY p.fecha DESC');
             res.json(result);
+        });
+    }
+    // traducir texto
+    traducirPublicacion(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.params.id;
+            const result = yield database_1.default.query(`SELECT * FROM publicacion WHERE id_publicacion = ${id}`);
+            const text = result[0].texto;
+            let params = {
+                SourceLanguageCode: 'auto',
+                TargetLanguageCode: 'en',
+                Text: text
+            };
+            translate.translateText(params, function (err, data) {
+                if (err) {
+                    console.log(err, err.stack);
+                    res.json(err);
+                }
+                else {
+                    console.log(data.TranslatedText);
+                    res.json(data.TranslatedText);
+                }
+            });
         });
     }
 }

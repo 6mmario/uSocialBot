@@ -23,4 +23,8 @@ export class PublicacionService {
   getAmigos(){
     return this.http.get(`${this.API_URI}/usuario`);
   }
+
+  getPublicacion(id){
+    return this.http.get(`${this.API_URI}/publicacion/${id}`)
+  }
 }

@@ -120,6 +120,7 @@ export class PublicacionComponent implements OnInit {
   amigos: any = [];
   us: string = "";
 
+  translate = 0;
 
   constructor(private publicacionServices: PublicacionService,
     private covidServices: CovidService,
@@ -132,6 +133,36 @@ export class PublicacionComponent implements OnInit {
     this.listaAmigos();
     this.obtenerTodo();
   }
+
+  arrayPublicacion: any = [{ id_publi: 0, texto: 'intro' }];
+  traducir(id) {
+
+    this.publicacionServices.getPublicacion(id).subscribe(
+      res => {
+        const resultado = this.arrayPublicacion.find(valor => valor.id_publi === id);
+        if (resultado == undefined) {
+          this.arrayPublicacion.push({ id_publi: id, texto: res });
+          this.mostrar(id);
+        } else {
+          this.mostrar(id);
+        }
+      },
+      err => console.log(err)
+    );
+  }
+
+  textoTraducido: any;
+  idTraducido: number = 0;
+  mostrar(id){
+    const resultado = this.arrayPublicacion.find(valor => valor.id_publi === id);
+    this.textoTraducido = resultado.texto;
+    this.idTraducido = id;
+    console.log(this.textoTraducido);
+  }
+
+
+
+
 
   //--------------------
 

@@ -14,6 +14,12 @@ const s3 = new AWS.S3({
     apiVersion: process.env.API_VERSION
 });
 
+const translate = new AWS.Translate({
+    accessKeyId: process.env.Translate_KEYC,
+    secretAccessKey: process.env.Translate_SECRETKEY,
+    region: 'us-east-2'
+});
+
 class PublicacionController {
 
     // Crear 0-Sin Fotografia, 1-Con Fotografia
@@ -71,8 +77,33 @@ class PublicacionController {
 
     // Mostrar Todo
     public async todasPublicaciones(req: Request, res: Response): Promise<void> {
-        const result  = await pool.query('SELECT p.id_publicacion, u.nickname, p.texto, p.fecha, p.urlimagen FROM publicacion p INNER JOIN usuario u ON u.id_usuario = p.USUARIO_id_usuario ORDER BY p.fecha DESC');
+        const result = await pool.query('SELECT p.id_publicacion, u.nickname, p.texto, p.fecha, p.urlimagen FROM publicacion p INNER JOIN usuario u ON u.id_usuario = p.USUARIO_id_usuario ORDER BY p.fecha DESC');
         res.json(result);
+    }
+
+    // traducir texto
+    public async traducirPublicacion(req: Request, res: Response): Promise<any> {
+        const id = req.params.id;
+        const result = await pool.query(`SELECT * FROM publicacion WHERE id_publicacion = ${id}`)
+
+        const text = result[0].texto;
+
+        let params = {
+            SourceLanguageCode: 'auto',
+            TargetLanguageCode: 'en',
+            Text: text
+        };
+
+        translate.translateText(params, function (err, data) {
+            if (err) {
+                console.log(err, err.stack);
+                res.json(err)
+            } else {
+                console.log(data.TranslatedText);
+                res.json(data.TranslatedText)
+            }
+        });
+
     }
 }
 
