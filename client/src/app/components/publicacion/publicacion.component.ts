@@ -195,8 +195,9 @@ export class PublicacionComponent implements OnInit {
 
   obtenerTodas() {
     this.publicacion.USUARIO_id_usuario = localStorage.getItem("id_usuario");
-    this.publicacionServices.getAll().subscribe(
+    this.publicacionServices.getAll(localStorage.getItem("id_usuario")).subscribe(
       res => {
+        console.log(res);
         this.publicaciones = res;
 
       },

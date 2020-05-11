@@ -16,8 +16,8 @@ export class PublicacionService {
     return this.http.post(`${this.API_URI}/publicacion`, publicacion);
   }
 
-  getAll (){
-    return this.http.get(`${this.API_URI}/publicacion`);
+  getAll (id){
+    return this.http.get(`${this.API_URI}/publicacion/mis/${id}`);
   }
 
   getAmigos(){

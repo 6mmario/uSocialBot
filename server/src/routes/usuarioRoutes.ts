@@ -16,8 +16,9 @@ class UsuarioRoutes {
         this.router.post('/OAuth', usuarioController.OAuth);
         this.router.post('/amistad', usuarioController.amistad);
         this.router.put('/:id', usuarioController.update);
-        this.router.get('/', usuarioController.todosAmigos);
+        
         this.router.get('/misAmigos/:id', usuarioController.misAmigos);
+        this.router.get('/todos/amigos/:id', usuarioController.todosAmigos);
         this.router.get('/:id', usuarioController.myData);
     }
 

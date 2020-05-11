@@ -177,7 +177,8 @@ class UsuarioController {
     // Mostrar Todo
     todosAmigos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield database_1.default.query('SELECT u.nickname, u.urlimagen FROM usuario u');
+            const id = req.params.id;
+            const result = yield database_1.default.query(` SELECT * FROM usuario u WHERE u.id_usuario <>'${id}' and u.id_usuario in(select a.usuario_id_usuario from amistad a where a.usuario_id_usuario1 ='${id}');`);
             res.json(result);
         });
     }
@@ -186,9 +187,12 @@ class UsuarioController {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
             console.log(id);
-            const result = yield database_1.default.query(`SELECT a.usuario_id_usuario1 AS Amigo, u.nombre AS Nombre, u.nickname AS Nickname, u.urlimagen AS URL FROM amistad a 
-        INNER JOIN usuario u ON a.usuario_id_usuario1 = u.id_usuario
-        WHERE a.usuario_id_usuario = '${id}';`);
+            const result = yield database_1.default.query(`SELECT a.usuario_id_usuario1 AS id_usuario, 
+        (SELECT u.nombre FROM usuario u WHERE u.id_usuario = a.usuario_id_usuario1 ) as nombre,
+        (SELECT u.nickname FROM usuario u WHERE u.id_usuario = a.usuario_id_usuario1 ) as nickname,
+        (SELECT u.urlimagen FROM usuario u WHERE u.id_usuario = a.usuario_id_usuario1 ) as urlimagen
+        FROM amistad a
+        WHERE usuario_id_usuario = '${id}';`);
             res.json(result);
         });
     }
