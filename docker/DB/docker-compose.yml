@@ -1,0 +1,11 @@
+version: '2'
+services:
+  usocialbot_db:
+    image: mysql:8.0.20
+    volumes:
+      - "/workspace-db/docker_containers/mysql80:/var/lib/mysql"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: usocialbot123
