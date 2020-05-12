@@ -16,4 +16,9 @@ export class UsuarioService {
   saveUsuario(usuario: Usuario) {
     return this.http.post(`${this.API_URI}/usuario`, usuario);
   }
+
+  getTodosAmigos(id){
+    return this.http.get(`${this.API_URI}/usuario/todos/amigos/${id}`)
+  }
+
 }

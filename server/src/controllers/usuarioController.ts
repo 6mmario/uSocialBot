@@ -176,14 +176,19 @@ class UsuarioController {
     // Mostrar Todo
     public async todosAmigos(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
-        const result = await pool.query(` SELECT * FROM usuario u WHERE u.id_usuario <>'${id}' and u.id_usuario in(select a.usuario_id_usuario from amistad a where a.usuario_id_usuario1 ='${id}');`);
+        const result = await pool.query(`SELECT * 
+        FROM usuario u 
+        WHERE u.id_usuario <> '${id}' AND u.id_usuario NOT IN
+        (SELECT a.usuario_id_usuario1 
+        FROM amistad a 
+        WHERE a.usuario_id_usuario ='${id}')
+        ;`);
         res.json(result);
     }
 
     // Mostar Mis Amigos
     public async misAmigos(req: Request, res: Response): Promise<void> {
         const id = req.params.id;
-        console.log(id);
         const result = await pool.query(`SELECT a.usuario_id_usuario1 AS id_usuario, 
         (SELECT u.nombre FROM usuario u WHERE u.id_usuario = a.usuario_id_usuario1 ) as nombre,
         (SELECT u.nickname FROM usuario u WHERE u.id_usuario = a.usuario_id_usuario1 ) as nickname,
@@ -195,6 +200,7 @@ class UsuarioController {
 
     // agregar amistad
     public async amistad(req: Request, res: Response): Promise<void> {
+        console.log(req.body);
         const result = pool.query('INSERT INTO amistad set ?', [req.body]);
         res.json({ message: 'amistad agregada' });
     }
@@ -205,6 +211,14 @@ class UsuarioController {
         const usuario = await pool.query('SELECT * FROM usuario WHERE id_usuario = ?', id);
         delete usuario[0].pass;
         return res.json(usuario[0]);
+    }
+
+    public async deleteAmigo(req: Request, res: Response): Promise<any> {
+        const u1 = req.params.id1;
+        const u2 = req.params.id2;
+        console.log( u1, u2);
+        await pool.query(`DELETE FROM amistad WHERE usuario_id_usuario = '${u1}' and usuario_id_usuario1 = '${u2}'`);
+        res.json({ message: "amistad eliminada" });
     }
 
 }

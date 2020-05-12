@@ -18,6 +18,7 @@ class UsuarioRoutes {
         this.router.get('/misAmigos/:id', usuarioController_1.default.misAmigos);
         this.router.get('/todos/amigos/:id', usuarioController_1.default.todosAmigos);
         this.router.get('/:id', usuarioController_1.default.myData);
+        this.router.delete('/eliminar/:id1/:id2', usuarioController_1.default.deleteAmigo);
     }
 }
 exports.default = new UsuarioRoutes().router;

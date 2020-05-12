@@ -16,7 +16,9 @@
                                 attr.aria-controls="collapse{{i}}">
                                 @{{amigo.nickname}}
                             </button>
+                            <span style="font-size:40%; color: blue" (click)="eliminar(amigo.id_usuario)">Eliminar</span> 
                         </h2>
+                       
                     </div>
 
                     <div id="collapse{{i}}" class="collapse" attr.aria-labelledby="heading{{i}}"
@@ -30,7 +32,7 @@
                 </div>
             </div>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <button *ngIf="boot" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Covid-19
             </button>
 

@@ -39,7 +39,7 @@ class Server {
             console.log(process.env.UDATABASE);
             console.log(process.env.PASSWORD);
             console.log(process.env.DATABASE);
-            console.log(process.env.PUERTO);
+            
         });
     }
 }
