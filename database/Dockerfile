@@ -1,5 +1,5 @@
 # Derived from official mysql image (our base image)
-FROM mysql
+FROM mysql:8.0.20
 
 # Add a database
 ENV MYSQL_DATABASE mydb
