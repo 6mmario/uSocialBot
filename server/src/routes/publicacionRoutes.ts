@@ -11,7 +11,7 @@ class UsuarioRoutes {
     }
 
     config() {
-        this.router.post('/', publicacionController.create);
+        this.router.post('/' , publicacionController.create);
         this.router.get('/:id', publicacionController.traducirPublicacion);
         this.router.get('/mis/:id', publicacionController.todasPublicaciones);
         
