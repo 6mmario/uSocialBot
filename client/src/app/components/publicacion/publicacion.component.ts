@@ -6,6 +6,7 @@ import { Publicacion } from '../../models/publicacion';
 import { PublicacionService } from '../../services/publicacion.service'
 import { CovidService } from '../../services/covid.service';
 import * as _ from 'lodash';
+import { Amistad } from 'src/app/models/amistad';
 @Component({
   selector: 'app-publicacion',
   templateUrl: './publicacion.component.html',
@@ -116,6 +117,11 @@ export class PublicacionComponent implements OnInit {
     imagen: 0,
   }
 
+  amistad: Amistad ={
+   usuario_id_usuario:'',
+   usuario_id_usuario1: ''
+  }
+
   publicaciones: any = [];
   amigos: any = [];
   us: string = "";
@@ -126,11 +132,14 @@ export class PublicacionComponent implements OnInit {
     private covidServices: CovidService,
     private router: Router) { }
 
+    boot: number = 1;
   ngOnInit(): void {
     if (localStorage.getItem("id_usuario") === null) { this.router.navigate(['login']); }
+    this.boot = +localStorage.getItem("bot");
+  
     this.us = localStorage.getItem("nickname");
     this.obtenerTodas();
-    this.listaAmigos();
+    this.listaAmigos(localStorage.getItem("id_usuario"));
     this.obtenerTodo();
   }
 
@@ -157,7 +166,6 @@ export class PublicacionComponent implements OnInit {
     const resultado = this.arrayPublicacion.find(valor => valor.id_publi === id);
     this.textoTraducido = resultado.texto;
     this.idTraducido = id;
-    console.log(this.textoTraducido);
   }
 
 
@@ -169,12 +177,10 @@ export class PublicacionComponent implements OnInit {
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
-    console.log('sirve o no sirve')
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
-    console.log('sirve o no sirve v')
   }
 
   public hideOne() {
@@ -197,7 +203,6 @@ export class PublicacionComponent implements OnInit {
     this.publicacion.USUARIO_id_usuario = localStorage.getItem("id_usuario");
     this.publicacionServices.getAll(localStorage.getItem("id_usuario")).subscribe(
       res => {
-        console.log(res);
         this.publicaciones = res;
 
       },
@@ -281,8 +286,8 @@ export class PublicacionComponent implements OnInit {
     this.suImagen = 0;
   }
 
-  listaAmigos() {
-    this.publicacionServices.getAmigos().subscribe(
+  listaAmigos(id) {
+    this.publicacionServices.getAmigos(id).subscribe(
       res => {
         this.amigos = res;
       },
@@ -393,7 +398,6 @@ export class PublicacionComponent implements OnInit {
     aux.forEach(element => {
       //console.log(element.date);
       if (element.date === this.fecha1) {
-        console.log('lo encontre');
         switch (this.tipoCasos) {
           case 'confirmados':
             console.log(element.confirmed);
@@ -416,4 +420,20 @@ export class PublicacionComponent implements OnInit {
       }
     });
   }
+
+  eliminar(id){
+      this.amistad.usuario_id_usuario= localStorage.getItem("id_usuario");
+     this.amistad.usuario_id_usuario1 = id;
+    
+    console.log(this.amistad);
+    this.publicacionServices.deleteAmigo(this.amistad)
+    .subscribe(
+      res => {
+        console.log(res);
+        window.location.reload();
+      },
+      err => console.log(err)
+    );
+  }
+
 }

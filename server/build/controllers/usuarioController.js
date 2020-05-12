@@ -178,7 +178,13 @@ class UsuarioController {
     todosAmigos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            const result = yield database_1.default.query(` SELECT * FROM usuario u WHERE u.id_usuario <>'${id}' and u.id_usuario in(select a.usuario_id_usuario from amistad a where a.usuario_id_usuario1 ='${id}');`);
+            const result = yield database_1.default.query(`SELECT * 
+        FROM usuario u 
+        WHERE u.id_usuario <> '${id}' AND u.id_usuario NOT IN
+        (SELECT a.usuario_id_usuario1 
+        FROM amistad a 
+        WHERE a.usuario_id_usuario ='${id}')
+        ;`);
             res.json(result);
         });
     }
@@ -186,7 +192,6 @@ class UsuarioController {
     misAmigos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const id = req.params.id;
-            console.log(id);
             const result = yield database_1.default.query(`SELECT a.usuario_id_usuario1 AS id_usuario, 
         (SELECT u.nombre FROM usuario u WHERE u.id_usuario = a.usuario_id_usuario1 ) as nombre,
         (SELECT u.nickname FROM usuario u WHERE u.id_usuario = a.usuario_id_usuario1 ) as nickname,
@@ -199,6 +204,7 @@ class UsuarioController {
     // agregar amistad
     amistad(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
             const result = database_1.default.query('INSERT INTO amistad set ?', [req.body]);
             res.json({ message: 'amistad agregada' });
         });
@@ -210,6 +216,15 @@ class UsuarioController {
             const usuario = yield database_1.default.query('SELECT * FROM usuario WHERE id_usuario = ?', id);
             delete usuario[0].pass;
             return res.json(usuario[0]);
+        });
+    }
+    deleteAmigo(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const u1 = req.params.id1;
+            const u2 = req.params.id2;
+            console.log(u1, u2);
+            yield database_1.default.query(`DELETE FROM amistad WHERE usuario_id_usuario = '${u1}' and usuario_id_usuario1 = '${u2}'`);
+            res.json({ message: "amistad eliminada" });
         });
     }
 }
